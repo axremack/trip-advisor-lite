@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,5 +23,15 @@ namespace DAL.Models
 
 		public virtual ICollection<Place> VisitedPlaces { get; set; }
 		public virtual ICollection<Place> FavouritePlaces { get; set; }
+	}
+
+	public class UserValidator : AbstractValidator<User>
+	{
+		public UserValidator()
+		{
+			//Règles à définir
+			//RuleFor(p => p.ProductName).NotEmpty().WithMessage("Enter a name");
+			//RuleFor(p => p.ModelYear).NotEqual(0).WithMessage("Impossible");
+		}
 	}
 }
