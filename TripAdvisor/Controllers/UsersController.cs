@@ -63,6 +63,16 @@ namespace TripAdvisor.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] User user)
         {
+            UserValidator validator = new UserValidator();
+            ValidationResult result = validator.Validate(user);
+            if (!result.IsValid)
+            {
+                foreach (var failure in result.Errors)
+                {
+                    Console.WriteLine("Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage);
+                }
+            }
+
             if (id != user.UserId)
             {
                 return BadRequest();
