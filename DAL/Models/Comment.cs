@@ -20,6 +20,7 @@ namespace DAL.Models
 		public DateTime Date { get; set; }
 
 		public int? UserId { get; set; }
+
 		[Required]
 		public int PlaceId { get; set; }
 
@@ -36,6 +37,7 @@ namespace DAL.Models
 			RuleFor(c => c.Content).NotEmpty().WithMessage("Enter a content");
 			RuleFor(c => c.Rank).NotEmpty().WithMessage("Enter a rank");
 			RuleFor(c => c.Date).NotEmpty().WithMessage("Enter a date");
+			RuleFor(c => c.PlaceId).NotEmpty().WithMessage("Enter a place");
 		}
 	}
 }
