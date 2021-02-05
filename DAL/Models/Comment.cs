@@ -32,7 +32,10 @@ namespace DAL.Models
 	{
 		public CommentValidator()
 		{
-			//Règles à définir
+			RuleFor(c => c.Title).NotEmpty().WithMessage("Enter a title");
+			RuleFor(c => c.Content).NotEmpty().WithMessage("Enter a content");
+			RuleFor(c => c.Rank).NotEmpty().WithMessage("Enter a rank");
+			RuleFor(c => c.Date).NotEmpty().WithMessage("Enter a date");
 		}
 	}
 }
