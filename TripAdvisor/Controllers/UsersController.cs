@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TripAdvisor.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -22,12 +22,12 @@ namespace TripAdvisor.Controllers
             _context = context;
         }
 
-        // GET: api/<UsersController>
+        // GET: /users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Get() =>
 			await _context.Users.ToListAsync();
 
-        // GET api/<UsersController>/5
+        // GET /users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetById(int id)
         {
@@ -39,7 +39,7 @@ namespace TripAdvisor.Controllers
             return item;
         }
 
-        // POST api/<UsersController>
+        // POST /users
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] User user)
         {
@@ -59,7 +59,7 @@ namespace TripAdvisor.Controllers
             return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
         }
 
-        // PUT api/<UsersController>/5
+        // PUT /users/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] User user)
         {
@@ -89,7 +89,7 @@ namespace TripAdvisor.Controllers
             return NoContent();
         }
 
-        // DELETE api/<UsersController>/5
+        // DELETE /users/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> Delete(long id)
         {
