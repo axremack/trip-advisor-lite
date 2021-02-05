@@ -5,7 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="ClientApp\package-lock.json" />
+    <Content Remove="ClientApp\package.json" />
+    <Content Remove="ClientApp\public\manifest.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="9.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,6 +22,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="ClientApp\package-lock.json" />
+    <None Include="ClientApp\package.json" />
+    <None Include="ClientApp\public\manifest.json" />
   </ItemGroup>
 
 </Project>
