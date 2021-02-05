@@ -25,7 +25,7 @@ namespace DAL.Models
 
 		[ForeignKey("UserId")]
 		public virtual User User { get; set; }
-		[ForeignKey("PlaceId"), Required]
+		[ForeignKey("PlaceId")]
 		public virtual Place Place { get; set; }
 	}
 
