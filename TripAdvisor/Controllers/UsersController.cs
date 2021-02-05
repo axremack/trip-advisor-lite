@@ -21,6 +21,7 @@ namespace TripAdvisor.Controllers
         {
             _repository = context;
         }
+
         // GET: /<UsersController>
         [HttpGet]
         public IEnumerable<User> Get() =>
