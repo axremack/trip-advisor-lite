@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation;
 
 namespace DAL.Models
 {
@@ -45,5 +46,15 @@ namespace DAL.Models
 		public virtual ICollection<Comment> Comments { get; set; }
 		public virtual ICollection<User> UsersHavingVisited { get; set; }
 		public virtual ICollection<User> UsersHavingFavoured { get; set; }
+	}
+
+	public class PlaceValidator : AbstractValidator<User>
+	{
+		public PlaceValidator()
+		{
+			//Règles à définir
+			//RuleFor(p => p.ProductName).NotEmpty().WithMessage("Enter a name");
+			//RuleFor(p => p.ModelYear).NotEqual(0).WithMessage("Impossible");
+		}
 	}
 }
