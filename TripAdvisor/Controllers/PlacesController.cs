@@ -30,8 +30,6 @@ namespace TripAdvisor.Controllers
 
         // GET /places/5
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetById(long id)
         {
             var item = _repository.Places.SingleOrDefault(t => t.PlaceId == id);
