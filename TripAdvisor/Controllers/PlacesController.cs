@@ -16,30 +16,30 @@ namespace TripAdvisor.Controllers
     [ApiController]
     public class PlacesController : ControllerBase
     {
-        private readonly TripAdvisorContext _repository;//bdd
+        private readonly TripAdvisorContext _context; //bdd
 
         public PlacesController(TripAdvisorContext context)
         {
-            _repository = context;
+            _context = context;
         }//Constructeur bdd
 
         // GET: /places
         [HttpGet]
-        public IEnumerable<Place> Get() =>
-            _repository.Places.ToList();
+        public async Task<ActionResult<IEnumerable<Place>>> Get() =>
+            await _context.Places.ToListAsync();
 
         // GET /places/5
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetById(long id)
+        public async Task<ActionResult<Place>> GetById(long id)
         {
-            var item = _repository.Places.SingleOrDefault(t => t.PlaceId == id);
+            var item = await _context.Places.FindAsync(id);
             if (item == null)
             {
                 return NotFound("Item not Found");
             }
-            return new ObjectResult(item);
+            return item;
         }
 
         // POST /places
@@ -56,40 +56,58 @@ namespace TripAdvisor.Controllers
                 }
             }
 
-            _repository.Places.Add(place);
-            await _repository.SaveChangesAsync();
+            _context.Places.Add(place);
+            await _context.SaveChangesAsync();
 
 
             return CreatedAtAction(nameof(Get), new { id = place.PlaceId }, place);
         }
         // PUT /places/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<Place>> Put(int id,[FromBody] Place place)
+        public async Task<IActionResult> Put(long id, [FromBody] Place place)
         {
             if (id != place.PlaceId)
             {
                 return BadRequest();
             }
 
-            _repository.Entry(place).State = EntityState.Modified;
-            await _repository.SaveChangesAsync();
+            _context.Entry(place).State = EntityState.Modified;
 
-            return CreatedAtAction(nameof(Get), new { id = place.PlaceId }, place);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PlaceExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
         // DELETE /places/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Place>> Delete(int id)
         {
-            var p = await _repository.Places.FindAsync(id);
+            var p = await _context.Places.FindAsync(id);
             if (p == null)
             {
                 return NotFound();
             }
 
-            _repository.Places.Remove(p);
-            await _repository.SaveChangesAsync();
+            _context.Places.Remove(p);
+            await _context.SaveChangesAsync();
 
             return p;
         }
+
+        private bool PlaceExists(long id) =>
+         _context.Places.Any(e => (long)e.PlaceId == id);
     }
 }
