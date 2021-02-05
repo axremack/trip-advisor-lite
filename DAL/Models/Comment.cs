@@ -26,18 +26,19 @@ namespace DAL.Models
 
 		[ForeignKey("UserId")]
 		public virtual User User { get; set; }
-		[ForeignKey("PlaceId"), Required]
+		[ForeignKey("PlaceId")]
 		public virtual Place Place { get; set; }
 	}
+
 	public class CommentValidator : AbstractValidator<Comment>
 	{
 		public CommentValidator()
 		{
 			RuleFor(c => c.Title).NotEmpty().WithMessage("Enter a title");
 			RuleFor(c => c.Content).NotEmpty().WithMessage("Enter a content");
-			RuleFor(c => c.Rank).NotEmpty().WithMessage("Enter a rank");
-			RuleFor(c => c.Date).NotEmpty().WithMessage("Enter a date");
-			RuleFor(c => c.PlaceId).NotEmpty().WithMessage("Enter a place");
+			RuleFor(c => c.Rank).NotNull().GreaterThan(0).LessThan(6).WithMessage("Rank are between 1 and 5");
+			RuleFor(c => c.Date).NotNull().WithMessage("Enter a valid date");
+			RuleFor(c => c.PlaceId).NotNull().WithMessage("Enter a valid place");
 		}
 	}
 }
