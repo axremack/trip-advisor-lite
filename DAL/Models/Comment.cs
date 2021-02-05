@@ -28,11 +28,16 @@ namespace DAL.Models
 		[ForeignKey("PlaceId"), Required]
 		public virtual Place Place { get; set; }
 	}
+
 	public class CommentValidator : AbstractValidator<Comment>
 	{
 		public CommentValidator()
 		{
-			//Règles à définir
+			RuleFor(c => c.Title).NotEmpty().WithMessage("Enter a title");
+			RuleFor(c => c.Content).NotEmpty().WithMessage("Enter a content");
+			RuleFor(c => c.Rank).NotNull().GreaterThan(0).LessThan(6).WithMessage("Rank are between 1 and 5");
+			RuleFor(c => c.Date).NotNull().WithMessage("Enter a valid date");
+			RuleFor(c => c.PlaceId).NotNull().WithMessage("Enter a valid place");
 		}
 	}
 }
