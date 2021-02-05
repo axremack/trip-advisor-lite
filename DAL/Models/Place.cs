@@ -48,7 +48,7 @@ namespace DAL.Models
 		public virtual ICollection<User> UsersHavingFavoured { get; set; }
 	}
 
-	public class PlaceValidator : AbstractValidator<User>
+	public class PlaceValidator : AbstractValidator<Place>
 	{
 		public PlaceValidator()
 		{
