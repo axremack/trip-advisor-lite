@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,5 +27,12 @@ namespace DAL.Models
 		public virtual User User { get; set; }
 		[ForeignKey("PlaceId"), Required]
 		public virtual Place Place { get; set; }
+	}
+	public class CommentValidator : AbstractValidator<Comment>
+	{
+		public CommentValidator()
+		{
+			//Règles à définir
+		}
 	}
 }
