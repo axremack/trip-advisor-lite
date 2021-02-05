@@ -11,35 +11,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TripAdvisor.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly TripAdvisorContext _repository;
+        private readonly TripAdvisorContext _context;
 
         public UsersController(TripAdvisorContext context)
         {
-            _repository = context;
+            _context = context;
         }
 
-        // GET: /<UsersController>
+        // GET: api/<UsersController>
         [HttpGet]
-        public IEnumerable<User> Get() =>
-            _repository.Users.ToList();
+        public async Task<ActionResult<IEnumerable<User>>> Get() =>
+			await _context.Users.ToListAsync();
 
-        // GET /<UsersController>/5
+        // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<ActionResult<User>> GetById(int id)
         {
-            var item = _repository.Users.SingleOrDefault(t => t.UserId == id);
+            var item = await _context.Users.FindAsync(id);
             if (item == null)
             {
                 return NotFound("User not found");
             }
-            return new ObjectResult(item);
+            return item;
         }
 
-        // POST /<UsersController>
+        // POST api/<UsersController>
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] User user)
         {
@@ -53,42 +53,59 @@ namespace TripAdvisor.Controllers
                 }
             }
 
-            _repository.Users.Add(user);
-            await _repository.SaveChangesAsync();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
         }
 
-        // PUT /<UsersController>/5
+        // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<User>> Put(int id, [FromBody] User user)
+        public async Task<IActionResult> Put(long id, [FromBody] User user)
         {
             if (id != user.UserId)
             {
                 return BadRequest();
             }
 
-            _repository.Entry(user).State = EntityState.Modified;
-            await _repository.SaveChangesAsync();
+            _context.Entry(user).State = EntityState.Modified;
+            
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
+            return NoContent();
         }
 
-        // DELETE /<UsersController>/5
+        // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
+        public async Task<ActionResult<User>> Delete(long id)
         {
-            var p = await _repository.Users.FindAsync(id);
+            var p = await _context.Users.FindAsync((int)id);
             if (p == null)
             {
                 return NotFound();
             }
 
-            _repository.Users.Remove(p);
-            await _repository.SaveChangesAsync();
+            _context.Users.Remove(p);
+            await _context.SaveChangesAsync();
 
             return p;
         }
+
+        private bool UserExists(long id) =>
+         _context.Users.Any(e => (long)e.UserId == id);
     }
 }
