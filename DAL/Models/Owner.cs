@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,5 +16,13 @@ namespace DAL.Models
 		public string MailAddress { get; set; }
 
 		public virtual ICollection<Place> Places { get; set; }
+	}
+
+	public class OwnerValidator : AbstractValidator<Owner>
+	{
+		public OwnerValidator()
+		{
+			RuleFor(o => o.MailAddress).NotEmpty().WithMessage("Enter a mail adress");
+		}
 	}
 }
