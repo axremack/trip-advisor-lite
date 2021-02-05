@@ -29,9 +29,8 @@ namespace DAL.Models
 	{
 		public UserValidator()
 		{
-			//Règles à définir
-			//RuleFor(p => p.ProductName).NotEmpty().WithMessage("Enter a name");
-			//RuleFor(p => p.ModelYear).NotEqual(0).WithMessage("Impossible");
+			RuleFor(u => u.SurName).NotEmpty().WithMessage("Enter a surname");
+			RuleFor(u => u.FirstName).NotEmpty().WithMessage("Enter a first name");
 		}
 	}
 }
