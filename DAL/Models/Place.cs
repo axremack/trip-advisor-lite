@@ -48,13 +48,17 @@ namespace DAL.Models
 		public virtual ICollection<User> UsersHavingFavoured { get; set; }
 	}
 
-	public class PlaceValidator : AbstractValidator<User>
+	public class PlaceValidator : AbstractValidator<Place>
 	{
 		public PlaceValidator()
 		{
-			//Règles à définir
-			//RuleFor(p => p.ProductName).NotEmpty().WithMessage("Enter a name");
-			//RuleFor(p => p.ModelYear).NotEqual(0).WithMessage("Impossible");
+			RuleFor(p => p.Title).NotEmpty().WithMessage("Enter a title");
+			RuleFor(p => p.Description).NotEmpty().WithMessage("Enter a description");
+			RuleFor(p => p.Street).NotEmpty().WithMessage("Enter a street");
+			RuleFor(p => p.City).NotEmpty().WithMessage("Enter a city");
+			RuleFor(p => p.ZipCode).NotEmpty().WithMessage("Enter a zip code");
+			RuleFor(p => p.State).NotEmpty().WithMessage("Enter a state");
+			RuleFor(p => p.Price).NotEqual(0).WithMessage("Enter a real price");
 		}
 	}
 }
