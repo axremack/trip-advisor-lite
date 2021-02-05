@@ -44,7 +44,7 @@ namespace TripAdvisor.Controllers
 
         // POST /places
         [HttpPost]
-        /*public async Task<ActionResult<Place>> Post([FromBody] Place place)
+        public async Task<ActionResult<Place>> Post([FromBody] Place place)
         {
             PlaceValidator validator = new PlaceValidator();
             ValidationResult result = validator.Validate(place);
@@ -61,7 +61,7 @@ namespace TripAdvisor.Controllers
 
 
             return CreatedAtAction(nameof(Get), new { id = place.PlaceId }, place);
-        }*/
+        }
         // PUT /places/5
         [HttpPut("{id}")]
         public async Task<ActionResult<Place>> Put(int id,[FromBody] Place place)
