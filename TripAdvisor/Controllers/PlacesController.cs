@@ -30,8 +30,6 @@ namespace TripAdvisor.Controllers
 
         // GET /places/5
         [HttpGet("{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Place>> GetById(long id)
         {
             var item = await _context.Places.FindAsync(id);
