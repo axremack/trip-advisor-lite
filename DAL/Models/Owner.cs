@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Mail;
 
 namespace DAL.Models
 {
@@ -22,7 +24,7 @@ namespace DAL.Models
 	{
 		public OwnerValidator()
 		{
-			RuleFor(o => o.MailAddress).NotEmpty().WithMessage("Enter a mail adress");
+			RuleFor(o => o.MailAddress).NotEmpty().EmailAddress().WithMessage("Enter a valid mail adress");
 		}
 	}
 }
