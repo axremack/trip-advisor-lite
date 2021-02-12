@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TripAdvisor.Controllers
 {
-    [Route("/types")]
+    [Route("/placetypes")]
     [ApiController]
     public class PlaceTypesController : ControllerBase
     {
