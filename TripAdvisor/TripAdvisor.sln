@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "..\DAL\DAL.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TripAdvisor.Front", "..\TripAdvisor.Front\TripAdvisor.Front.csproj", "{17B2003B-86C7-489D-8B7B-BAE7CA8F4151}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TripAdvisor", "TripAdvisor.csproj", "{CA14F903-02C1-4E8B-8751-3D2619C2782E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{17B2003B-86C7-489D-8B7B-BAE7CA8F4151}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17B2003B-86C7-489D-8B7B-BAE7CA8F4151}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17B2003B-86C7-489D-8B7B-BAE7CA8F4151}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA14F903-02C1-4E8B-8751-3D2619C2782E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA14F903-02C1-4E8B-8751-3D2619C2782E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA14F903-02C1-4E8B-8751-3D2619C2782E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA14F903-02C1-4E8B-8751-3D2619C2782E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
