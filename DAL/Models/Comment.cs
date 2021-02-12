@@ -20,6 +20,7 @@ namespace DAL.Models
 		public DateTime Date { get; set; }
 
 		public int? UserId { get; set; }
+
 		[Required]
 		public int PlaceId { get; set; }
 
