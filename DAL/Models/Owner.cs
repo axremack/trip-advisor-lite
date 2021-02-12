@@ -24,6 +24,8 @@ namespace DAL.Models
 	{
 		public OwnerValidator()
 		{
+			RuleFor(o => o.SurName).NotEmpty().WithMessage("Enter a surname");
+			RuleFor(o => o.FirstName).NotEmpty().WithMessage("Enter a first name");
 			RuleFor(o => o.MailAddress).NotEmpty().EmailAddress().WithMessage("Enter a valid mail adress");
 		}
 	}
