@@ -80,7 +80,7 @@ export class NavMenu extends Component {
               <ul className="navbar-nav flex-grow">
                 {button}
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Ecrire un avis</NavLink>
+                  <NavLink tag={Link} className="text-dark pl-5" to="/counter">Ecrire un avis</NavLink>
                 </NavItem>
               </ul>
             </Collapse>
