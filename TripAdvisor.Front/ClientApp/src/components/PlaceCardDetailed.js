@@ -18,8 +18,10 @@ export class PlaceCardDetailed extends Component {
         <Container fluid>
             <Row>
                  <Col className="h3 p-0 font-weight-bold">Nom Lieu</Col>
-                 <Col className="h3 text-right p-0">Ville</Col>
             </Row> 
+            <Row>
+                 <Col className="h3 p-0">Ville</Col>
+            </Row>
             <Row>
                  <Col className="h5 px-0 pb-3">Note moyenne (nombre d'avis)</Col>
             </Row> 
