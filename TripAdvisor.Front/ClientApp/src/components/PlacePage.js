@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 import { CommentCard } from './CommentCard';
 import { PlaceCardDetailed } from './PlaceCardDetailed';
+import { SortMenu } from './SortMenu';
 
 
 export class PlacePage extends Component {
@@ -24,6 +25,7 @@ export class PlacePage extends Component {
                     <PlaceCardDetailed />
                  </Col>
                  <Col className="mt-5">
+                    <SortMenu />
                     <CommentCard />
                  </Col>
              </Row>
