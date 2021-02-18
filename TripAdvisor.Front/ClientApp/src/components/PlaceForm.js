@@ -1,6 +1,11 @@
 ﻿import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import {
+	Form,
+	Col,
+	FormGroup,
+	Input,
+	Button
+} from 'reactstrap';
 
 export class PlaceForm extends Component {
 	static displayName = PlaceForm.name;

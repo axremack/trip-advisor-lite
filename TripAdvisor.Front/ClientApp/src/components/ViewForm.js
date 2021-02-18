@@ -1,6 +1,11 @@
 ﻿import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import {
+	Form,
+	Col,
+	FormGroup,
+	Input,
+	Button
+} from 'reactstrap';
 
 export class ViewForm extends Component {
 	static displayName = ViewForm.name;
@@ -19,6 +24,8 @@ export class ViewForm extends Component {
 							name="Note"
 							id="exampleNote"
 							placeholder="Note"
+							min="1"
+							max="5"
 						/>
 					</FormGroup>
 				</Col>

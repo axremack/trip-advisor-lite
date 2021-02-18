@@ -8,6 +8,8 @@ import { Login } from './components/Login';
 import { PlaceCard } from './components/PlaceCard';
 import { PlacePage } from './components/PlacePage';
 import { PlaceForm } from './components/PlaceForm';
+import { ViewForm } from './components/ViewForm';
+import { InscriptionForm } from './components/InscriptionForm';
 
 import './custom.css'
 
@@ -17,7 +19,7 @@ export default class App extends Component {
   render () {
     return (
         <Layout>
-        <Route exact path='/' component={PlacePage} />
+        <Route exact path='/form' component={InscriptionForm} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
       </Layout>
