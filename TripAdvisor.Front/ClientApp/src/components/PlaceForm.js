@@ -2,22 +2,11 @@
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export class NavMenu extends Component {
-	static displayName = NavMenu.name;
+export class PlaceForm extends Component {
+	static displayName = PlaceForm.name;
 
 	constructor(props) {
 		super(props);
-
-		this.toggleNavbar = this.toggleNavbar.bind(this);
-		this.state = {
-			collapsed: true
-		};
-	}
-
-	toggleNavbar() {
-		this.setState({
-			collapsed: !this.state.collapsed
-		});
 	}
 
 	render() {
@@ -35,7 +24,7 @@ export class NavMenu extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="city" id="exampleCity" placeholder="Ville"/>
+						<Input type="text" name="city" id="exampleCity" placeholder="Ville" />
 					</FormGroup>
 				</Col>
 				<Col md={6}>
@@ -50,7 +39,7 @@ export class NavMenu extends Component {
 				</Col>
 				<div>
 					<Button color="success">Valider</Button>{' '}
-				</div>	
+				</div>
 			</Form>
 		);
 	}
