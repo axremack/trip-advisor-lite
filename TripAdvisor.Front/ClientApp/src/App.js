@@ -10,6 +10,9 @@ import { PlacePage } from './components/PlacePage';
 import { PlaceForm } from './components/PlaceForm';
 import { ViewForm } from './components/ViewForm';
 import { InscriptionForm } from './components/InscriptionForm';
+import { UserCommentCard } from './components/UserCommentCard';
+
+
 
 import './custom.css'
 
@@ -19,7 +22,7 @@ export default class App extends Component {
   render () {
     return (
         <Layout>
-        <Route exact path='/form' component={InscriptionForm} />
+        <Route exact path='/card' component={UserCommentCard} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
       </Layout>
