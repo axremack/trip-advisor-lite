@@ -2,22 +2,11 @@
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-export class NavMenu extends Component {
-	static displayName = NavMenu.name;
+export class ViewForm extends Component {
+	static displayName = ViewForm.name;
 
 	constructor(props) {
 		super(props);
-
-		this.toggleNavbar = this.toggleNavbar.bind(this);
-		this.state = {
-			collapsed: true
-		};
-	}
-
-	toggleNavbar() {
-		this.setState({
-			collapsed: !this.state.collapsed
-		});
 	}
 
 	render() {
