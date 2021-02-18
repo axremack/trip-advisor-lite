@@ -6,8 +6,8 @@ import {
   Button
 } from 'reactstrap';
 
-export class CommentCard extends Component {
-  static displayName = CommentCard.name;
+export class UserCommentCard extends Component {
+  static displayName = UserCommentCard.name;
 
   constructor(props) {
       super(props);
@@ -16,14 +16,14 @@ export class CommentCard extends Component {
   render() {
       return (
           <Container fluid className="border">
-              <Row className="pt-5">
+              <Row className="pt-1">
                   <Col className="h4 font-weight-bold">Lieu</Col>
               </Row>
-              <Row className="pb-0">
+              <Row>
                   <Col className="h5 font-weight-bold">Titre avis récent</Col>
-                  <Col className="h5 font-weight-bold text-right">Nom auteur</Col>
+                  <Col className="h5 text-right">Nom auteur</Col>
               </Row>
-              <Row className="pb-2">
+              <Row>
                   <Col>Les bords de l'Allier ......... blablablabla</Col>
               </Row>
           </Container>

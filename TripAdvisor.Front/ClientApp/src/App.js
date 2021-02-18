@@ -11,6 +11,8 @@ import { PlaceForm } from './components/PlaceForm';
 import { ViewForm } from './components/ViewForm';
 import { InscriptionForm } from './components/InscriptionForm';
 import { UserCommentCard } from './components/UserCommentCard';
+import { UserCardDetailed } from './components/UserCardDetailed';
+import { UserPage } from './components/UserPage';
 
 
 
@@ -22,7 +24,7 @@ export default class App extends Component {
   render () {
     return (
         <Layout>
-        <Route exact path='/card' component={UserCommentCard} />
+        <Route exact path='/user' component={UserPage} />
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
       </Layout>

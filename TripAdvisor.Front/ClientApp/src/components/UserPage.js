@@ -29,5 +29,5 @@ export class UserPage extends Component {
                 </Row>
             </Container>
         );
-    }
+    }//col md=4 classname=mr-4: on choisit de prendre pour cette colonne: 4 emplacements sur 12 de l'écran de taille médium, et on met une marge sur sa droite. Ainsi les autres colonnes restantes se partagent automatiquement les 8 colonnes restantes.
 }

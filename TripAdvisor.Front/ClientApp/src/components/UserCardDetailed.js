@@ -15,21 +15,12 @@ export class UserCardDetailed extends Component {
 
     render() {
         return (
-            <Container fluid>
+            <Container>
                 <Row>
-                    <Col className="h3 p-0 font-weight-bold">Nom User</Col>
+                    <Col className="h3 pt-5 font-weight-bold">Nom User</Col>
                 </Row>
                 <Row>
-                    <Col className="h3 p-0">Ville</Col>
-                </Row>
-                <Row>
-                    <Col className="h5 px-0 pb-3">Note moyenne (nombre d'avis)</Col>
-                </Row>
-                <Row className="pb-3">
-                    <img width="100%" src="/img_bidon.jpg" alt="Place image" />
-                </Row>
-                <Row>
-                    <Button color="success">Ajouter un avis</Button>
+                    <Col className="h4 pl-3">Ville</Col>
                 </Row>
             </Container>
         );
