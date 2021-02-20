@@ -15,23 +15,19 @@ export class PlaceCard extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            Title: title,
-            City: city
-        }
     }
 
-  render () {
-    return (
-        <Col sm="6">
-             <Card>
-                <CardImg top width="10%" src="/img_bidon.jpg" alt="Place Image" />
-                <CardBody>
-                    <CardTitle tag="h5">{this.props.title + ", " + this.props.city}</CardTitle>
-                        <CardText tag={Link} to="/">En savoir plus</CardText>
-                </CardBody>
-            </Card>
-        </Col>
-    );
-  }
+    render() {
+        return (
+            <Col sm="6">
+                 <Card>
+                    <CardImg top width="10%" src="/img_bidon.jpg" alt="Place Image" />
+                    <CardBody>
+                        <CardTitle tag="h5">{this.props.title + ", " + this.props.city}</CardTitle>
+                            <CardText tag={Link} to="/">En savoir plus</CardText>
+                    </CardBody>
+                </Card>
+            </Col>
+        );
+    }
 }

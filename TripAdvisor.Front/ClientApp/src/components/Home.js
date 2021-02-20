@@ -24,7 +24,7 @@ export class Home extends Component {
                     <h1>Destinations populaires</h1>
                     {
                         places.map(place => {
-                            return <PlaceCard key={place.PlaceId} title={place.Title} city={place.City} />;
+                            return <PlaceCard key={place.placeId} title={place.title} city={place.city} />;
                         })
                     }
                 </section>
