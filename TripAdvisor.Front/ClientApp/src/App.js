@@ -21,7 +21,8 @@ export default class App extends Component {
 	render() {
 		return (
 			<Layout>
-				<Route exact path='/' component={PlacePage} />
+				<Route exact path='/' component={Home} />
+				<Route exact path='/place' component={PlacePage} />
 				<Route exact path='/user' component={UserPage}/>
 				<Route path='/counter' component={Counter}/>
 				<Route path='/fetch-data' component={FetchData}/>
