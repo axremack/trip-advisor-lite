@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { FormFeedback, Form, Button, FormGroup, Label, Input, NavLink } from 'reactstrap';
+import { FormFeedback, Form, Button, FormGroup, Label, Input, NavLink, Alert } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export class Register extends Component {
@@ -17,7 +17,7 @@ export class Register extends Component {
 		event.preventDefault();
 		event.stopPropagation();
 		let form = document.getElementById("validation");
-		
+
 		if (form.checkValidity() === true) {
 			let data = JSON.stringify({
 				SurName: document.getElementById("surnameInput").value,
@@ -34,8 +34,12 @@ export class Register extends Component {
 
 			if (res.status === 201) {
 				alert('ok');
+			} else if (res.status === 409) {
+				document.getElementById("mailUsed").removeAttribute('hidden');
+				document.getElementById("failed").setAttribute('hidden', 'true');
 			} else {
-				alert('fail');
+				document.getElementById("mailUsed").setAttribute('hidden', 'true');
+				document.getElementById("failed").removeAttribute('hidden');
 			}
 		}
 
@@ -44,33 +48,41 @@ export class Register extends Component {
 
 	render() {
 		return (
-			<div ref={ d => (this.instance = d) }>
+			<div>
 				<h1>S'inscrire</h1>
+
+				<Alert id="mailUsed" color='danger' hidden>
+					<b>Adresse mail déjà utilisée</b> Veuillez entrer une autre adresse.
+				</Alert>
+
+				<Alert id="failed" color='danger' hidden>
+					<b>Erreur</b> L'inscription a échoué. Veuillez réessayez.
+				</Alert>
 
 				<Form id="validation" noValidate onSubmit={this.onSubmit}>
 					<FormGroup>
 						<Label for="mailInput">Nom</Label>
-						<Input type="text" name="surname" id="surnameInput" required maxLength="255" ref="SurName"/>
+						<Input type="text" name="surname" id="surnameInput" required maxLength="255" />
 						<FormFeedback invalid>Entrez un nom (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 					<FormGroup>
 						<Label for="mailInput">Prénom</Label>
-						<Input type="text" name="firstName" id="firstNameInput" required maxLength="255" ref="FirstName"/>
+						<Input type="text" name="firstName" id="firstNameInput" required maxLength="255" />
 						<FormFeedback invalid>Entrez un prénom (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 					<FormGroup>
 						<Label for="mailInput">Email</Label>
-						<Input type="email" name="email" id="mailInput" placeholder="example@trip.advisor.com" required maxLength="255" ref="MailAddress"/>
+						<Input type="email" name="email" id="mailInput" placeholder="example@trip.advisor.com" required maxLength="255" />
 						<FormFeedback invalid>Entrez un mail valide (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 					<FormGroup>
 						<Label for="passwordInput">Mot de passe</Label>
-						<Input type="password" name="password" id="passwordInput" required minLength="8" onChange={this.validatePassword} ref="Password"/>
+						<Input type="password" name="password" id="passwordInput" required minLength="8" onChange={this.validatePassword} />
 						<FormFeedback invalid>Entrez un mot de passe avec au moins 8 caractères</FormFeedback>
 					</FormGroup>
 					<FormGroup>
 						<Label for="passwordInput">Confirmer le mot de passe</Label>
-						<Input type="password" id="confirmPasswordInput" onChange={this.validatePassword}/>
+						<Input type="password" id="confirmPasswordInput" onChange={this.validatePassword} />
 						<FormFeedback invalid>Mots de passe différents</FormFeedback>
 					</FormGroup>
 					<div className="d-flex">

@@ -54,6 +54,11 @@ namespace TripAdvisor.Controllers
                 }
             }
 
+            if (!await _context.Owners.AllAsync(o => o.MailAddress != owner.MailAddress))
+			{
+                return Conflict();
+			}
+
             _context.Owners.Add(owner);
             await _context.SaveChangesAsync();
 
