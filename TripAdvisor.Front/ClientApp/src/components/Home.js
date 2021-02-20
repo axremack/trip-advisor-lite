@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { PlaceCard } from './PlaceCard';
 
 export class Home extends Component {

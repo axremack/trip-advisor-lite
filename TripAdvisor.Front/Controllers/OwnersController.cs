@@ -65,6 +65,31 @@ namespace TripAdvisor.Controllers
             return CreatedAtAction(nameof(Get), new { id = owner.UserId }, owner);
         }
 
+        // POST api/<OwnersController>/connect
+        [HttpPost("connect")]
+        public async Task<IActionResult> Connect(ConnectionHelper helper)
+        {
+            if (helper == null)
+            {
+                return BadRequest();
+            }
+
+            List<Owner> ownersFound = await _context.Owners.Where(o => o.MailAddress == helper.MailAddress && o.Password == helper.Password).ToListAsync();
+
+            if (!ownersFound.Any() || ownersFound.Count > 1)
+			{
+                return Unauthorized();
+			}
+
+            return Ok(helper.Password);
+        }
+
+        public class ConnectionHelper
+		{
+            public string MailAddress { get; set; }
+            public string Password { get; set; }
+		}
+
         // PUT api/<OwnersController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] Owner owner)
