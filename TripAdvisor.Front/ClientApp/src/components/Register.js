@@ -17,27 +17,26 @@ export class Register extends Component {
 		event.preventDefault();
 		event.stopPropagation();
 		let form = document.getElementById("validation");
-		console.log('sub');
-		if (form.checkValidity() !== true) {
-		}
+		
+		if (form.checkValidity() === true) {
+			let data = JSON.stringify({
+				SurName: document.getElementById("surnameInput").value,
+				FirstName: document.getElementById("firstNameInput").value,
+				MailAddress: document.getElementById("mailInput").value,
+				Password: document.getElementById("passwordInput").value
+			});
 
-		let data = JSON.stringify({
-			SurName: document.getElementById("surnameInput").value,
-			FirstName: document.getElementById("firstNameInput").value,
-			MailAddress: document.getElementById("mailInput").value,
-			Password: document.getElementById("passwordInput").value
-		});
+			const res = await fetch('owners', {
+				method: 'POST',
+				headers: { 'Content-type': 'application/json' },
+				body: data
+			});
 
-		const res = await fetch('owners', {
-			method: 'POST',
-			headers: { 'Content-type': 'application/json' },
-			body: data
-		});
-
-		if (res.status === 200) {
-			alert('ok');
-		} else {
-			alert('fail');
+			if (res.status === 201) {
+				alert('ok');
+			} else {
+				alert('fail');
+			}
 		}
 
 		form.classList.add('was-validated');
