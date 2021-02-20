@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace TripAdvisor.Controllers
 
         // POST api/<OwnersController>
         [HttpPost]
-        public async Task<ActionResult<Owner>> Post([FromBody] Owner owner)
+        public async Task<ActionResult<Owner>> Post(Owner owner)
         {
             OwnerValidator validator = new OwnerValidator();
             ValidationResult result = validator.Validate(owner);

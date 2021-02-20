@@ -13,21 +13,21 @@ import { InscriptionForm } from './components/InscriptionForm';
 import { UserCommentCard } from './components/UserCommentCard';
 import { UserCardDetailed } from './components/UserCardDetailed';
 import { UserPage } from './components/UserPage';
-
-
-
-import './custom.css'
+import { Register } from './components/Register';
 
 export default class App extends Component {
 	static displayName = App.name;
 
-  render () {
-    return (
-        <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
-    );
-  }
+	render() {
+		return (
+			<Layout>
+				<Route exact path='/' component={PlacePage} />
+				<Route exact path='/user' component={UserPage}/>
+				<Route path='/counter' component={Counter}/>
+				<Route path='/fetch-data' component={FetchData}/>
+				<Route path='/login' component={Login} />
+				<Route path='/register' component={Register} />
+			</Layout>
+		);
+	}
 }
