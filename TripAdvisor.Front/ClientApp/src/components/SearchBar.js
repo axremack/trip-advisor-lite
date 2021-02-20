@@ -10,10 +10,6 @@ import {
 export class SearchBar extends Component {
 	static displayName = SearchBar.name;
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<Form inline className="ml-5">

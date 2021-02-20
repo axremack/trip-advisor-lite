@@ -81,7 +81,7 @@ namespace TripAdvisor.Controllers
                 return Unauthorized();
 			}
 
-            return Ok(helper.Password);
+            return Ok(ownersFound[0].UserId);
         }
 
         public class ConnectionHelper

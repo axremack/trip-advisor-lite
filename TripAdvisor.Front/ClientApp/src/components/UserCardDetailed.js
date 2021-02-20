@@ -9,10 +9,6 @@ import {
 export class UserCardDetailed extends Component {
     static displayName = UserCardDetailed.name;
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <Container>

@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
 import { Alert, Form, Button, FormGroup, FormFeedback, Label, Input, NavLink } from 'reactstrap';
+import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { sha256 } from 'js-sha256';
 
@@ -8,6 +9,11 @@ export class Login extends Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			doRedirect: false,
+			setToken: props.setToken
+		};
 	}
 
 	onSubmit = async (event) => {
@@ -28,8 +34,10 @@ export class Login extends Component {
 			});
 
 			if (res.status === 200) {
-				alert('ok');
-				console.log(res.json());
+				let token = await res.text();
+				localStorage.setItem('user', token);
+				this.state.setToken(token);
+				this.setState({ doRedirect: true });
 			} else if (res.status === 401) {
 				document.getElementById("incorrect").removeAttribute('hidden');
 				document.getElementById("failed").setAttribute('hidden', 'true');
@@ -43,7 +51,9 @@ export class Login extends Component {
 	}
 
 	render() {
-		console.log(this.props.location.search);
+		if (this.state.doRedirect) {
+			return <Redirect push to="/" />
+		}
 
 		return (
 			<div>
@@ -66,7 +76,7 @@ export class Login extends Component {
 					<FormGroup>
 						<Label for="mailInput">Email</Label>
 						<Input type="email" name="email" id="mailInput" placeholder="example@trpadvlite.com" required maxLength="255" />
-						<FormFeedback invalid>Entrez un mail valide (max. 255 caractères)</FormFeedback>
+						<FormFeedback invalid="true">Entrez un mail valide (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 					<FormGroup>
 						<Label for="passwordInput">Mot de passe</Label>

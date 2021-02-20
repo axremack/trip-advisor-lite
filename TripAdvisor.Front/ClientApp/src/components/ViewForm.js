@@ -10,10 +10,6 @@ import {
 export class ViewForm extends Component {
 	static displayName = ViewForm.name;
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<Form>

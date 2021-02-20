@@ -10,10 +10,6 @@ import {
 export class PlaceForm extends Component {
 	static displayName = PlaceForm.name;
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<Form>
