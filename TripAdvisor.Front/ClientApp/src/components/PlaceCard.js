@@ -11,7 +11,15 @@ import { Link } from 'react-router-dom';
 
 
 export class PlaceCard extends Component {
-  static displayName = PlaceCard.name;
+    static displayName = PlaceCard.name;
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            Title: title,
+            City: city
+        }
+    }
 
   render () {
     return (
@@ -19,7 +27,7 @@ export class PlaceCard extends Component {
              <Card>
                 <CardImg top width="10%" src="/img_bidon.jpg" alt="Place Image" />
                 <CardBody>
-                        <CardTitle tag="h5">Hotel de Paris</CardTitle>
+                    <CardTitle tag="h5">{this.props.title + ", " + this.props.city}</CardTitle>
                         <CardText tag={Link} to="/">En savoir plus</CardText>
                 </CardBody>
             </Card>

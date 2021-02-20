@@ -14,7 +14,7 @@ export class Home extends Component {
 
     componentDidMount() {
         this.populatePlacesList();
-    }  
+    }
 
     static renderPlacesList(places) {
         console.log(places);
@@ -36,34 +36,20 @@ export class Home extends Component {
     }
 
     async populatePlacesList() {
-        axios.get(`http://localhost/places`)
-            .then(res => this.setState({ Places: res.data }));
+        const res = await fetch('places', {
+            method: 'GET',
+            headers: { 'Content-type': 'application/json' }
+        });
+        console.log(res);
+
+        if (res.ok) {
+            res.json().then(data => this.setState({ Places: data }));
+        } else {
+            this.setState({ Places: null });
+        }
     }
 
     render() {
-        /* !!! NE MARCHE PAS !!!
-        let [places, setPlaces] = useState([]);
-        const [searchText, setSearchText] = useState(null);
-
-        function createListPlaces() {
-            useEffect(() => {
-                fetch('http://localhost/places', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => setPlaces(data.filter(place => place.State.toLowerCase().includes(searchText))));
-            }, [searchText]);
-        }
-
-        const search = ""; //text => { setSearchText(text) };
-        
-        const listPlaces = places
-            .flatMap(place => ({ ...place, id: place.PlaceId, title: place.Title, city: place.City }))
-            .map(card => <PlaceCard key={card.id} title={card.title} city={card.city} />);
-        */
         return (
           <div>
                 {Home.renderPlacesList(this.state.Places)}
