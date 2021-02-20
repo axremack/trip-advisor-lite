@@ -1,23 +1,17 @@
 ﻿import React, { Component } from 'react';
-import { Button } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import {
+	Form,
+	Col,
+	FormGroup,
+	Input,
+	Button
+} from 'reactstrap';
 
-export class NavMenu extends Component {
-	static displayName = NavMenu.name;
+export class ViewForm extends Component {
+	static displayName = ViewForm.name;
 
 	constructor(props) {
 		super(props);
-
-		this.toggleNavbar = this.toggleNavbar.bind(this);
-		this.state = {
-			collapsed: true
-		};
-	}
-
-	toggleNavbar() {
-		this.setState({
-			collapsed: !this.state.collapsed
-		});
 	}
 
 	render() {
@@ -30,6 +24,8 @@ export class NavMenu extends Component {
 							name="Note"
 							id="exampleNote"
 							placeholder="Note"
+							min="1"
+							max="5"
 						/>
 					</FormGroup>
 				</Col>
