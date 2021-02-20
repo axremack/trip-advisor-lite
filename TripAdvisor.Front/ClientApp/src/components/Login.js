@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
-import { Alert, Form, Button, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { Alert, Form, Button, FormGroup, Label, Input, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export class Login extends Component {
 	static displayName = Login.name;
@@ -9,25 +10,23 @@ export class Login extends Component {
 			<div>
 				<h1>Connexion</h1>
 
-				<Alert color='danger'>
+				<Alert color='danger' hidden>
 					Les identifiants sont incorects
 				</Alert>
 
 				<Form>
 					<FormGroup>
 						<Label for="mailInput">Email</Label>
-						<InputGroup>
-							<InputGroupAddon addonType='prepend'>
-								<InputGroupText>@</InputGroupText>
-							</InputGroupAddon>
-							<Input type="email" name="email" id="mailInput" placeholder="example@trip.advisor.com"/>
-						</InputGroup>
+						<Input type="email" name="email" id="mailInput" placeholder="example@trip.advisor.com" />
 					</FormGroup>
 					<FormGroup>
 						<Label for="passwordInput">Mot de passe</Label>
-						<Input type="password" name="password" id="passwordInput"/>
+						<Input type="password" name="password" id="passwordInput" />
 					</FormGroup>
-					<Button color='success'>C'est parti !</Button>
+					<div className="d-flex">
+						<Button color='success'>C'est parti !</Button>
+						<NavLink tag={Link} className="btn btn-secondary ml-2" to="/register">Pas de compte ? Créez-en un !</NavLink>
+					</div>
 				</Form>
 
 			</div>

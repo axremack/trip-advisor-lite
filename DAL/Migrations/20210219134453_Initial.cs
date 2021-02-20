@@ -48,7 +48,8 @@ namespace DAL.Migrations
                     surname = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     first_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     user_type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    mail = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true)
+                    mail = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: true),
+                    password = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {

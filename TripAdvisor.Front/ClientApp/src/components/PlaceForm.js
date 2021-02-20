@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Form, Col, FormGroup, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 export class PlaceForm extends Component {
