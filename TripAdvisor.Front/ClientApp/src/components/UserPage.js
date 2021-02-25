@@ -12,10 +12,6 @@ import { UserCardDetailed } from "./UserCardDetailed"
 export class UserPage extends Component {
     static displayName = UserPage.name;
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <Container fluid className="pt-5">

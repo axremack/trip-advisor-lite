@@ -17,7 +17,7 @@ export class Home extends Component {
 
     static renderPlacesList(places) {
         console.log(places);
-        if ((places != null) && (places.length != 0)) {
+        if ((places !== null) && (places.length !== 0)) {
             return (
                 <section>
                     <h1>Destinations populaires</h1>

@@ -25,7 +25,8 @@ export class NavMenu extends Component {
 		this.toggleNavbar = this.toggleNavbar.bind(this);
 		this.state = {
 			collapsed: true,
-			token: null
+			appState: props.appState,
+			setToken: props.setToken
 		};
 	}
 
@@ -35,16 +36,15 @@ export class NavMenu extends Component {
 		});
 	}
 
-	setToken = (token) => {
-		this.setState(state => ({
-			collapsed: state.collapsed,
-			token: token
-		}))
+	componentWillReceiveProps(nextProps) {
+		this.setState({ appState: nextProps.appState });
 	}
 
 	render() {
-		const isLoggedIn = this.state.token;
-		let button;
+		const isLoggedIn = this.state.appState.token;
+		console.log(isLoggedIn);
+		let button = null;
+
 		if (isLoggedIn) {
 			button = <NavItem>
 				<UncontrolledDropdown nav inNavbar>
@@ -55,7 +55,10 @@ export class NavMenu extends Component {
 						<DropdownItem>
 							Profil
                         </DropdownItem>
-						<DropdownItem>
+						<DropdownItem onClick={() => {
+							localStorage.clear();
+							this.state.setToken(null);
+						}}>
 							Deconnexion
                         </DropdownItem>
 					</DropdownMenu>
@@ -85,12 +88,12 @@ export class NavMenu extends Component {
 						<NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
 						<Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
 							<SearchBar />
-							<ul className="navbar-nav flex-grow">
+							<div className="navbar-nav flex-grow">
 								{button}
 								<NavItem>
 									<NavLink tag={Link} className="text-dark pl-5" to="/counter">Ecrire un avis</NavLink>
 								</NavItem>
-							</ul>
+							</div>
 						</Collapse>
 					</Container>
 				</Navbar>
