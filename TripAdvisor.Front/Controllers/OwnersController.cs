@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,7 +42,7 @@ namespace TripAdvisor.Controllers
 
         // POST api/<OwnersController>
         [HttpPost]
-        public async Task<ActionResult<Owner>> Post([FromBody] Owner owner)
+        public async Task<ActionResult<Owner>> Post(Owner owner)
         {
             OwnerValidator validator = new OwnerValidator();
             ValidationResult result = validator.Validate(owner);
@@ -53,11 +54,41 @@ namespace TripAdvisor.Controllers
                 }
             }
 
+            if (!await _context.Owners.AllAsync(o => o.MailAddress != owner.MailAddress))
+			{
+                return Conflict();
+			}
+
             _context.Owners.Add(owner);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(Get), new { id = owner.UserId }, owner);
         }
+
+        // POST api/<OwnersController>/connect
+        [HttpPost("connect")]
+        public async Task<IActionResult> Connect(ConnectionHelper helper)
+        {
+            if (helper == null)
+            {
+                return BadRequest();
+            }
+
+            List<Owner> ownersFound = await _context.Owners.Where(o => o.MailAddress == helper.MailAddress && o.Password == helper.Password).ToListAsync();
+
+            if (!ownersFound.Any() || ownersFound.Count > 1)
+			{
+                return Unauthorized();
+			}
+
+            return Ok(ownersFound[0].UserId);
+        }
+
+        public class ConnectionHelper
+		{
+            public string MailAddress { get; set; }
+            public string Password { get; set; }
+		}
 
         // PUT api/<OwnersController>/5
         [HttpPut("{id}")]
