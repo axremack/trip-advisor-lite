@@ -13,10 +13,10 @@ export class PlaceCardDetailed extends Component {
 		return (
 			<Container fluid>
 				<Row>
-					<Col className="h3 p-0 font-weight-bold">Nom Lieu</Col>
+					<Col className="h3 p-0 font-weight-bold">{this.props.title}</Col>
 				</Row>
 				<Row>
-					<Col className="h3 p-0">Ville</Col>
+					<Col className="h3 p-0">{this.props.city}</Col>
 				</Row>
 				<Row>
 					<Col className="h5 px-0 pb-3">Note moyenne (nombre d'avis)</Col>
@@ -25,7 +25,7 @@ export class PlaceCardDetailed extends Component {
 					<img width="100%" src="/img_bidon.jpg" alt="A beautiful place" />
 				</Row>
 				<Row>
-					<Button color="success">Ajouter un avis</Button>
+					<Button tag={Link} to={"/"} color="success">Ajouter un avis</Button>
 				</Row>
 			</Container>
 		);

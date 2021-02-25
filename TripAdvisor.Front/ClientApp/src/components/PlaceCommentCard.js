@@ -11,31 +11,35 @@ export class PlaceCommentCard extends Component {
 
     constructor (props) {
         super(props);
-        /*this.state = {
-            User: null,
-        };*/
+        this.state = {
+            User: [],
+        };
     }
 
-    /*async findUserComment() {
-        const res = await fetch('user', {
+    componentDidMount() {
+        this.findUser();
+    }
+
+    async findUser() {
+        const res = await fetch('users/' + this.props.user, {
             method: 'GET',
             headers: { 'Content-type': 'application/json' }
         });
         console.log(res);
 
         if (res.ok) {
-            res.json().then(data => this.setState({ Comments: data }));
+            res.json().then(data => this.setState({ User: data }));
         } else {
-            this.setState({ Comments: null });
+            this.setState({ User: null });
         }
-    }*/
+    }
 
  render() {
      return (
         <Container fluid className="border mb-2">
             <Row className="pt-2">
                  <Col className="h4 font-weight-bold">{this.props.title}</Col>
-                 <Col className="h4 text-right">{this.props.user}</Col>
+                 <Col className="h4 text-right">{this.state.User.surName}</Col>
             </Row> 
             <Row className="pb-1">
                  <Col className="h5">{this.props.rank}/5</Col>
