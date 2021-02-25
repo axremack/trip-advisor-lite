@@ -44,6 +44,8 @@ export default class App extends Component {
 			<Layout appState={this.state} setToken={this.setToken}>
 				<Route exact path='/' component={Home} />
 				<Route exact path='/place' component={PlacePage} />
+				<Route exact path='/place/addcomment' component={ViewForm} />
+				<Route exact path='/place/addplace' component={PlaceForm} />
 				<Route exact path='/user' component={UserPage}/>
 				<Route path='/counter' component={Counter}/>
 				<Route path='/fetch-data' component={FetchData}/>
