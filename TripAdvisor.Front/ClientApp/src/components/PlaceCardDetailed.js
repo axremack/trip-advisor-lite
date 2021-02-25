@@ -5,6 +5,7 @@ import {
 	Col,
 	Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export class PlaceCardDetailed extends Component {
 	static displayName = PlaceCardDetailed.name;

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { PlaceCard } from './PlaceCard';
 
-export class Home extends Component {
-    static displayName = Home.name;
+export class SearchPage extends Component {
+    static displayName = SearchPage.name;
 
     constructor() {
         super();
@@ -20,7 +20,7 @@ export class Home extends Component {
         if ((places !== null) && (places.length !== 0)) {
             return (
                 <section>
-                    <h1>Destinations populaires</h1>
+                    <h1>Resultats de la recherche</h1>
                     {
                         places.map(place => {
                             return <PlaceCard key={place.placeId} id={place.placeId} title={place.title} city={place.city} />;
@@ -30,7 +30,7 @@ export class Home extends Component {
             );
         }
         else {
-            return (<div className='jumbotron '><h1 class="display-4">Aucun lieu pour le moment</h1></div>);
+            return (<div className='jumbotron '><h1 class="display-4">Aucun lieu ne correspond a votre recherche</h1></div>);
         }
     }
 
@@ -50,7 +50,7 @@ export class Home extends Component {
     render() {
         return (
           <div>
-                {Home.renderPlacesList(this.state.Places)}
+                {SearchPage.renderPlacesList(this.state.Places)}
           </div>
         );
   }
