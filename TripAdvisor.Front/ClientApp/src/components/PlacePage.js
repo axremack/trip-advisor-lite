@@ -18,7 +18,10 @@ export class PlacePage extends Component {
       this.state = {
           Comments: [],
           Place: [],
+          sort: null
       };
+
+      this.setSort = this.setSort.bind(this)
     }
 
     componentDidMount() {
@@ -26,8 +29,16 @@ export class PlacePage extends Component {
         this.findPlace();
     }
 
+    setSort = (nSort) => {
+        if (nSort !== this.state.sort) {
+            this.setState({
+                sort: nSort
+            });
+            console.log(nSort);
+        }
+	}
+
     static renderCommentsList(comments) {
-        console.log(comments);
         if ((comments !== null) && (comments.length !== 0)) {
             return (
                 <section>
@@ -78,7 +89,7 @@ export class PlacePage extends Component {
                      <PlaceCardDetailed key={this.state.Place.placeId} title={this.state.Place.title} city={this.state.Place.city} />
                  </Col>
                  <Col className="mt-5">
-                     <SortMenu />
+                     <SortMenu setSort={this.setSort}/>
                      {PlacePage.renderCommentsList(this.state.Comments)}
                  </Col>
              </Row>

@@ -21,13 +21,13 @@ export class SortMenu extends Component {
 						<UncontrolledDropdown>
 							<DropdownToggle caret>
 								Trier par ...
-                         </DropdownToggle>
+							</DropdownToggle>
 							<DropdownMenu>
-								<DropdownItem>Note min</DropdownItem>
-								<DropdownItem>Note max</DropdownItem>
-								<DropdownItem>Alphabetique</DropdownItem>
-								<DropdownItem>Plus recent</DropdownItem>
-								<DropdownItem>Plus ancien</DropdownItem>
+								<DropdownItem onClick={ () => this.props.setSort('min-rank') }>Note min</DropdownItem>
+								<DropdownItem onClick={ () => this.props.setSort('max-rank') }>Note max</DropdownItem>
+								<DropdownItem onClick={ () => this.props.setSort('alpha') }>Alphabetique</DropdownItem>
+								<DropdownItem onClick={ () => this.props.setSort('recent') }>Plus recent</DropdownItem>
+								<DropdownItem onClick={ () => this.props.setSort('old') }>Plus ancien</DropdownItem>
 							</DropdownMenu>
 						</UncontrolledDropdown>
 					</Col>
