@@ -20,7 +20,7 @@ export class PlaceCard extends Component {
 					<CardImg top width="10%" src="/img_bidon.jpg" alt="Place Image" />
 					<CardBody>
 						<CardTitle tag="h5">{this.props.title + ", " + this.props.city}</CardTitle>
-						<CardText tag={Link} to={"/place/" + this.props.key}>En savoir plus {this.props.key}</CardText>
+						<CardText tag={Link} to={"/place/" + this.props.id}>En savoir plus {this.props.key}</CardText>
 					</CardBody>
 				</Card>
 			</Col>

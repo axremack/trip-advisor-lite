@@ -13,6 +13,7 @@ import { UserCommentCard } from './components/UserCommentCard';
 import { UserCardDetailed } from './components/UserCardDetailed';
 import { UserPage } from './components/UserPage';
 import { Register } from './components/Register';
+import { SearchPage } from './components/SearchPage';
 
 export default class App extends Component {
 	static displayName = App.name;
@@ -43,10 +44,11 @@ export default class App extends Component {
 		return (
 			<Layout appState={this.state} setToken={this.setToken}>
 				<Route exact path='/' component={Home} />
-				<Route exact path='/place' component={PlacePage} />
+				<Route exact path='/place/:id' component={PlacePage} />
 				<Route exact path='/place/addcomment' component={ViewForm} />
 				<Route exact path='/place/addplace' component={PlaceForm} />
-				<Route exact path='/user' component={UserPage}/>
+				<Route exact path='/user' component={UserPage} />
+				<Route exact path='/search/:text' component={SearchPage} />
 				<Route path='/counter' component={Counter}/>
 				<Route path='/fetch-data' component={FetchData}/>
 				<Route path='/login' render={(props) => <Login {...props} setToken={this.setToken}/>} />

@@ -57,7 +57,7 @@ export class PlacePage extends Component {
     }
 
     async findPlace() {
-        const res = await fetch('places/2' /*+ this.props.key*/, {
+        const res = await fetch('places/' + this.props.match.params.id, {
             method: 'GET',
             headers: { 'Content-type': 'application/json' }
         });
