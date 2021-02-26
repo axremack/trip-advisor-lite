@@ -26,11 +26,12 @@ export class PlaceForm extends Component {
 
 		if (form.checkValidity() === true) {
 			let data = JSON.stringify({
+				UserId: this.props.Userid,
 				Name: document.getElementById("NameInput").value,
 				Description: document.getElementById("DescritpionInput").value,
 				City: document.getElementById("CityInput").value,
-				PlaceType: document.getElementById("PlaceTypeInput").value,
-				Tag: document.getElementById("TagInput").value
+				Type: document.getElementById("PlaceTypeInput").value,
+				Tags: document.getElementById("TagInput").value
 			});
 
 			const res = await fetch('places', {
@@ -48,6 +49,10 @@ export class PlaceForm extends Component {
 
 
 	render() {
+		if (this.state.doRedirect) {
+			return <Redirect push to="/place/addplace" with="Votre lieu a été ajouté" />
+		}
+
 		return (
 			<Form id="valid" noValidate onSubmit={this.onSubmit}>
 				<Col md={6}>

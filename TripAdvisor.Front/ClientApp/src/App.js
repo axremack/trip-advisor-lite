@@ -44,10 +44,11 @@ export default class App extends Component {
 		return (
 			<Layout appState={this.state} setToken={this.setToken}>
 				<Route exact path='/' component={Home} />
+				<Route exact path='/placecard' component={PlaceCard} />
 				<Route exact path='/place/:id' component={PlacePage} />
-				<Route exact path='/place/addcomment' component={ViewForm} />
-				<Route exact path='/place/addplace' component={PlaceForm} />
-				<Route exact path='/user' component={UserPage} />
+				<Route exact path='/place/:id/addcomment' render={(props) => <ViewForm {...props} userId={this.state.token} />} />
+				<Route exact path='/user/:id/addplace' render={(props) => <PlaceForm {...props} userId={this.state.token} />} />
+				<Route exact path='/user/:id' render={(props) => <UserPage {...props} appState={this.state} />} />
 				<Route exact path='/search/:text' component={SearchPage} />
 				<Route path='/counter' component={Counter}/>
 				<Route path='/fetch-data' component={FetchData}/>
