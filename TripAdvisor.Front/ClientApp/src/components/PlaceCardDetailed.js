@@ -66,7 +66,7 @@ export class PlaceCardDetailed extends Component {
 					<img width="100%" src="/img_bidon.jpg" alt="A beautiful place" />
 				</Row>
 				<Row>
-					<Button tag={Link} to={"/"} color="success">Ajouter un avis</Button>
+					<Button tag={Link} to={"/place/" + this.props.id + "/addcomment"} color="success">Ajouter un avis</Button>
 				</Row>
 			</Container>
 		);

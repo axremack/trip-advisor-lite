@@ -7,6 +7,7 @@ import {
 	Button,
 	FormFeedback
 } from 'reactstrap';
+import { Redirect } from 'react-router';
 
 
 export class ViewForm extends Component {
@@ -27,8 +28,10 @@ export class ViewForm extends Component {
 
 		if (form.checkValidity() === true) {
 			let data = JSON.stringify({
-				Note: document.getElementById("noteInput").value,
-				Comment: document.getElementById("commentInput").value,
+				UserId: this.props.userId,
+				PlaceId: this.props.match.params.id,
+				Rank: document.getElementById("noteInput").value,
+				Content: document.getElementById("commentInput").value,
 				Title: document.getElementById("titleInput").value,
 				Date: document.getElementById("dateInput").value
 			});
@@ -48,6 +51,10 @@ export class ViewForm extends Component {
 
 
 	render() {
+		if (this.state.doRedirect) {
+			return <Redirect push to={"/place/" + this.props.match.params.id}  with="Votre avis a été créé"/>
+		}
+
 		return (
 			<Form id="validation" noValidate onSubmit={this.onSubmit}>
 				<Col md={6}>
@@ -83,7 +90,7 @@ export class ViewForm extends Component {
 					</FormGroup>
 				</Col>
 				<div>
-					<Button color="success">Valider</Button>{' '}
+					<Button color="success">Valider</Button>
 				</div>
 			</Form>
 		);
