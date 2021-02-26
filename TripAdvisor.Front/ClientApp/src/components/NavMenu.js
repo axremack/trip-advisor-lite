@@ -26,7 +26,7 @@ export class NavMenu extends Component {
 		this.state = {
 			collapsed: true,
 			token: props.token,
-			lastToken: props.lastToken
+			setToken: props.setToken
 		};
 	}
 
@@ -37,10 +37,9 @@ export class NavMenu extends Component {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.token !== state.lastToken) {
+		if (props.token !== state.token) {
 			return {
-				token: localStorage.getItem('user'),
-				lastToken: props.token,
+				token: props.token,
 				setToken: props.setToken
 			};
 		}

@@ -10,16 +10,14 @@ export class Layout extends Component {
 
 		this.state = {
 			token: props.token,
-			lastToken: props.lastToken,
 			setToken: props.setToken
 		};
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.token !== state.lastToken) {
+		if (props.token !== state.token) {
 			return {
-				token: localStorage.getItem('user'),
-				lastToken: props.token
+				token: props.token
 			};
 		}
 

@@ -8,12 +8,18 @@ export class Home extends Component {
         super(props);
         this.state = {
             Places: [],
-            appState: props.appState
+            token: props.userId
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({ appState: nextProps.appState });
+    static getDerivedStateFromProps(props, state) {
+        if (props.userId !== state.token) {
+            return {
+                token: props.userId
+            };
+        }
+
+        return null;
     }
 
     componentDidMount() {
@@ -51,7 +57,7 @@ export class Home extends Component {
     }
 
     render() {
-        const isLoggedIn = this.state.appState.token;
+        const isLoggedIn = this.state.token;
         let contenu = null;
 
         if (isLoggedIn) {

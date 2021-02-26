@@ -22,16 +22,14 @@ export default class App extends Component {
 		super(props);
 
 		this.state = {
-			token: localStorage.getItem('user'),
-			lastToken: null
+			token: localStorage.getItem('user')
 		};
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		if (props.token !== state.lastToken) {
+		if (props.token !== state.token) {
 			return {
-				token: localStorage.getItem('user'),
-				lastToken: props.token
+				token: localStorage.getItem('user')
 			};
 		}
 
@@ -47,7 +45,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<Layout token={this.state.token} setToken={this.setToken}>
-				<Route exact path='/' render={(props) => <Home {...props} appState={this.state} />} />
+				<Route exact path='/' render={(props) => <Home {...props} userId={this.state.token} />} />
 				<Route exact path='/placecard' component={PlaceCard} />
 				<Route exact path='/place/:id' component={PlacePage} />
 				<Route exact path='/place/:id/addcomment' render={(props) => <ViewForm {...props} userId={this.state.token} />} />
