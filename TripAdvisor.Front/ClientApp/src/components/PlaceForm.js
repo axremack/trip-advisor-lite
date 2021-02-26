@@ -7,6 +7,7 @@ import {
 	Button,
 	FormFeedback
 } from 'reactstrap';
+import { Redirect } from 'react-router';
 
 export class PlaceForm extends Component {
 	static displayName = PlaceForm.name;

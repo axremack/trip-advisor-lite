@@ -64,9 +64,9 @@ export class ViewForm extends Component {
 							name="Note"
 							id="noteInput"
 							placeholder="Note"
-							min="1"
-							max="5"
-							required min="1" max="5"
+							min={1}
+							max={5}
+							required
 						/>
 						<FormFeedback invalid="true">Entrez une note entre 1 et 5</FormFeedback>
 					</FormGroup>

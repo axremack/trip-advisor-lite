@@ -9,19 +9,27 @@ export class Layout extends Component {
 		super(props);
 
 		this.state = {
-			appState: props.appState,
+			token: props.token,
+			lastToken: props.lastToken,
 			setToken: props.setToken
 		};
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({ appState: nextProps.appState });
+	static getDerivedStateFromProps(props, state) {
+		if (props.token !== state.lastToken) {
+			return {
+				token: localStorage.getItem('user'),
+				lastToken: props.token
+			};
+		}
+
+		return null;
 	}
 
 	render() {
 		return (
 			<div>
-				<NavMenu appState={this.state.appState} setToken={this.state.setToken} />
+				<NavMenu token={this.state.token} setToken={this.state.setToken} />
 				<Container>
 					{this.props.children}
 				</Container>

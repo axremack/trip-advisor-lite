@@ -16,7 +16,6 @@ export class SearchPage extends Component {
     }
 
     static renderPlacesList(places) {
-        console.log(places);
         if ((places !== null) && (places.length !== 0)) {
             return (
                 <section>
@@ -30,7 +29,7 @@ export class SearchPage extends Component {
             );
         }
         else {
-            return (<div className='jumbotron '><h1 class="display-4">Aucun lieu ne correspond a votre recherche</h1></div>);
+            return (<div className='jumbotron '><h1 className="display-4">Aucun lieu ne correspond a votre recherche</h1></div>);
         }
     }
 

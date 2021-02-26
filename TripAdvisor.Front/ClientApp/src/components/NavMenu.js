@@ -25,8 +25,8 @@ export class NavMenu extends Component {
 		this.toggleNavbar = this.toggleNavbar.bind(this);
 		this.state = {
 			collapsed: true,
-			appState: props.appState,
-			setToken: props.setToken
+			token: props.token,
+			lastToken: props.lastToken
 		};
 	}
 
@@ -36,12 +36,20 @@ export class NavMenu extends Component {
 		});
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({ appState: nextProps.appState });
+	static getDerivedStateFromProps(props, state) {
+		if (props.token !== state.lastToken) {
+			return {
+				token: localStorage.getItem('user'),
+				lastToken: props.token,
+				setToken: props.setToken
+			};
+		}
+
+		return null;
 	}
 
 	render() {
-		const isLoggedIn = this.state.appState.token;
+		const isLoggedIn = this.state.token;
 		let button = null;
 
 		if (isLoggedIn) {

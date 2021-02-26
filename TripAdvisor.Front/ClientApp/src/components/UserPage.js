@@ -2,8 +2,7 @@
 import {
     Container,
     Row,
-    Col,
-    Button
+    Col
 } from 'reactstrap';
 import { UserCommentCard } from "./UserCommentCard"
 import { UserCardDetailed } from "./UserCardDetailed"
@@ -19,13 +18,12 @@ export class UserPage extends Component {
         this.state = {
             Comments: [],
             User: [],
-            appState: props.appState,
-            setToken: props.setToken
+            token: props.token
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({ appState: nextProps.appState });
+        this.setState({ token: nextProps.token });
     }
 
     componentDidMount() {
@@ -55,7 +53,6 @@ export class UserPage extends Component {
             method: 'GET',
             headers: { 'Content-type': 'application/json' }
         });
-        console.log(res);
 
         if (res.ok) {
             res.json().then(data => this.setState({ Comments: data }));
@@ -69,7 +66,6 @@ export class UserPage extends Component {
             method: 'GET',
             headers: { 'Content-type': 'application/json' }
         });
-        console.log(res);
 
         if (res.ok) {
             res.json().then(data => this.setState({ User: data }));
@@ -83,7 +79,7 @@ export class UserPage extends Component {
             <Container fluid className="pt-5">
                 <Row>
                     <Col md="4" className="mr-4">
-                        <UserCardDetailed key={this.state.User.userId} id={this.state.User.userId} firstname={this.state.User.firstName} surname={this.state.User.surName} city={this.state.User.city} token={this.state.appState.token} />
+                        <UserCardDetailed key={this.state.User.userId} id={this.state.User.userId} firstname={this.state.User.firstName} surname={this.state.User.surName} city={this.state.User.city} token={this.state.token} />
                     </Col>
                     <Col className="mt-5">
                         <SortMenu />

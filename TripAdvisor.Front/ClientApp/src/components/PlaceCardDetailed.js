@@ -37,9 +37,7 @@ export class PlaceCardDetailed extends Component {
 	AvgRank(comments) {
 		let total = comments.length;
 		let avg = 0;
-		console.log(avg);
-		console.log(total);
-		comments.map(comment => { avg += comment.rank; });
+		comments.map(comment => avg += comment.rank);
 		return avg / total;
     }
 
@@ -49,7 +47,6 @@ export class PlaceCardDetailed extends Component {
 		if ((this.state.Comments !== null) && (this.state.Comments.length !== 0)) {
 			numberComments = "Note moyenne : " + this.AvgRank(this.state.Comments) + " (" + this.state.Comments.length + " avis)";
 		}
-		console.log(numberComments);
 
 		return (
 			<Container fluid>

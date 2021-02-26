@@ -22,16 +22,20 @@ export default class App extends Component {
 		super(props);
 
 		this.state = {
-			token: localStorage.getItem('user')
+			token: localStorage.getItem('user'),
+			lastToken: null
 		};
-
-		this.setToken = this.setToken.bind(this)
 	}
 
-	componentWillReceiveProps(nextProps) {
-		this.setState({
-			token: localStorage.getItem('user')
-		});
+	static getDerivedStateFromProps(props, state) {
+		if (props.token !== state.lastToken) {
+			return {
+				token: localStorage.getItem('user'),
+				lastToken: props.token
+			};
+		}
+
+		return null;
 	}
 
 	setToken = (token) => {
@@ -42,13 +46,13 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<Layout appState={this.state} setToken={this.setToken}>
+			<Layout token={this.state.token} setToken={this.setToken}>
 				<Route exact path='/' component={Home} />
 				<Route exact path='/placecard' component={PlaceCard} />
 				<Route exact path='/place/:id' component={PlacePage} />
 				<Route exact path='/place/:id/addcomment' render={(props) => <ViewForm {...props} userId={this.state.token} />} />
 				<Route exact path='/user/:id/addplace' render={(props) => <PlaceForm {...props} userId={this.state.token} />} />
-				<Route exact path='/user/:id' render={(props) => <UserPage {...props} appState={this.state} />} />
+				<Route exact path='/user/:id' render={(props) => <UserPage {...props} userId={this.state.token} />} />
 				<Route exact path='/search/:text' component={SearchPage} />
 				<Route path='/counter' component={Counter}/>
 				<Route path='/fetch-data' component={FetchData}/>

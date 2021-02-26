@@ -2,8 +2,7 @@
 import {
 	Container,
 	Row,
-	Col,
-	Button
+	Col
 } from 'reactstrap';
 
 export class UserCommentCard extends Component {

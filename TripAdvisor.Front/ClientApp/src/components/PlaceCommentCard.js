@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import {
 	Container,
 	Row,
-	Col,
-	Button
+	Col
 } from 'reactstrap';
 import './PlaceCommentCard.css';
 

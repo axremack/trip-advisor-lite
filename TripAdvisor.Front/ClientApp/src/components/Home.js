@@ -16,7 +16,6 @@ export class Home extends Component {
     }
 
     static renderPlacesList(places) {
-        console.log(places);
         if ((places !== null) && (places.length !== 0)) {
             return (
                 <section>
@@ -30,7 +29,7 @@ export class Home extends Component {
             );
         }
         else {
-            return (<div className='jumbotron '><h1 class="display-4">Aucun lieu pour le moment</h1></div>);
+            return (<div className='jumbotron '><h1 className="display-4">Aucun lieu pour le moment</h1></div>);
         }
     }
 

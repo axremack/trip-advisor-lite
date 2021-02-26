@@ -42,7 +42,7 @@ export class UserCardDetailed extends Component {
         console.log(isLoggedIn);
         console.log(this.props.id);
 
-        if (isLoggedIn == this.props.id) {
+        if (isLoggedIn === this.props.id) {
             button = <Button tag={Link} to={"/"} color="success">Ajouter un lieu</Button>;
         }
 
