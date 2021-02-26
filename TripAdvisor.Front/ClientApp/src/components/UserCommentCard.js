@@ -4,6 +4,7 @@ import {
 	Row,
 	Col
 } from 'reactstrap';
+import './CommentCard.css';
 
 export class UserCommentCard extends Component {
 	static displayName = UserCommentCard.name;
@@ -41,7 +42,14 @@ export class UserCommentCard extends Component {
 				</Row>
 				<Row className="pb-1">
 					<Col className="h5 font-weight-bold">{this.props.title}</Col>
-					<Col className="h5 text-right">{this.props.rank}/5</Col>
+					<Col className="h5 text-right">{this.props.rank}/5
+						<div className="stars-outer">
+							&#x02606;&#x02606;&#x02606;&#x02606;&#x02606;
+							<div className="stars-inner" style={{ width: this.props.rank / 5 * 100 + '%' }}>
+								&#x02605;&#x02605;&#x02605;&#x02605;&#x02605;
+							</div>
+						</div>
+					</Col>
 				</Row>
 				<Row className="pb-2">
 					<Col>{this.props.content}</Col>

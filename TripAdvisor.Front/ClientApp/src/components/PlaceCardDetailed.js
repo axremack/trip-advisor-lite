@@ -6,6 +6,7 @@ import {
 	Button
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import './CommentCard.css';
 
 export class PlaceCardDetailed extends Component {
 	static displayName = PlaceCardDetailed.name;
@@ -22,13 +23,17 @@ export class PlaceCardDetailed extends Component {
 	}
 
 	async populateCommentsList() {
-		const res = await fetch('comments/place/' + this.props.id, {
-			method: 'GET',
-			headers: { 'Content-type': 'application/json' }
-		});
+		if (this.props.id) {
+			const res = await fetch('comments/place/' + this.props.id, {
+				method: 'GET',
+				headers: { 'Content-type': 'application/json' }
+			});
 
-		if (res.ok) {
-			res.json().then(data => this.setState({ Comments: data }));
+			if (res.ok) {
+				res.json().then(data => this.setState({ Comments: data }));
+			} else {
+				this.setState({ Comments: null });
+			}
 		} else {
 			this.setState({ Comments: null });
 		}
@@ -45,7 +50,18 @@ export class PlaceCardDetailed extends Component {
 		let numberComments = null;
 		
 		if ((this.state.Comments !== null) && (this.state.Comments.length !== 0)) {
-			numberComments = "Note moyenne : " + this.AvgRank(this.state.Comments) + " (" + this.state.Comments.length + " avis)";
+			let avg = this.AvgRank(this.state.Comments);
+			numberComments =
+				<div>
+					Note moyenne ({this.state.Comments.length} avis)<br />
+					{avg}/5
+					<div className="stars-outer">
+						&#x02606;&#x02606;&#x02606;&#x02606;&#x02606;
+						<div className="stars-inner" style={{ width: avg / 5 * 100 + '%'}}>
+							&#x02605;&#x02605;&#x02605;&#x02605;&#x02605;
+						</div>
+					</div>
+				</div>;
 		}
 
 		return (

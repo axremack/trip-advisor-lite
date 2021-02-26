@@ -4,7 +4,7 @@ import {
 	Row,
 	Col
 } from 'reactstrap';
-import './PlaceCommentCard.css';
+import './CommentCard.css';
 
 export class PlaceCommentCard extends Component {
 	static displayName = PlaceCommentCard.name;
@@ -25,7 +25,6 @@ export class PlaceCommentCard extends Component {
 			method: 'GET',
 			headers: { 'Content-type': 'application/json' }
 		});
-		console.log(res);
 
 		if (res.ok) {
 			res.json().then(data => this.setState({ User: data }));

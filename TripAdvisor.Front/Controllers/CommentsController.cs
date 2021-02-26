@@ -44,7 +44,7 @@ namespace TripAdvisor.Controllers
         public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsOfUser(int id)
         {
             var item = await _context.Comments.Where(c => c.UserId == id).ToListAsync();
-            if (item == null)
+            if (item == null || !item.Any())
             {
                 return NotFound("No comments");
             }
@@ -56,7 +56,7 @@ namespace TripAdvisor.Controllers
         public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsOfPlace(int id)
         {
             var item = await _context.Comments.Where(c => c.PlaceId == id).ToListAsync();
-            if (item == null)
+            if (item == null || !item.Any())
             {
                 return NotFound("No comments");
             }
