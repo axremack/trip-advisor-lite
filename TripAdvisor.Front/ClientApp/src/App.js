@@ -43,7 +43,7 @@ export default class App extends Component {
 	render() {
 		return (
 			<Layout appState={this.state} setToken={this.setToken}>
-				<Route exact path='/' component={Home} />
+				<Route exact path='/' render={(props) => <Home {...props} appState={this.state} />} />
 				<Route exact path='/place/:id' component={PlacePage} />
 				<Route exact path='/place/addcomment' component={ViewForm} />
 				<Route exact path='/place/addplace' component={PlaceForm} />

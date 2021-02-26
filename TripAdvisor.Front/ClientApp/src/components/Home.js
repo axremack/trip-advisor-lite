@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import { PlaceCard } from './PlaceCard';
 
 export class Home extends Component {
     static displayName = Home.name;
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            Places: []
+            Places: [],
+            appState: props.appState
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({ appState: nextProps.appState });
     }
 
     componentDidMount() {
@@ -16,21 +21,19 @@ export class Home extends Component {
     }
 
     static renderPlacesList(places) {
-        console.log(places);
         if ((places !== null) && (places.length !== 0)) {
             return (
-                <section>
-                    <h1>Destinations populaires</h1>
+                <div className="placeList">
                     {
                         places.map(place => {
                             return <PlaceCard key={place.placeId} id={place.placeId} title={place.title} city={place.city} />;
                         })
                     }
-                </section>
+                </div>
             );
         }
         else {
-            return (<div className='jumbotron '><h1 class="display-4">Aucun lieu pour le moment</h1></div>);
+            return (<div className='jumbotron '><h1 className="display-4">Aucun lieu pour le moment</h1></div>);
         }
     }
 
@@ -48,9 +51,34 @@ export class Home extends Component {
     }
 
     render() {
+        const isLoggedIn = this.state.appState.token;
+        let contenu = null;
+
+        if (isLoggedIn) {
+            contenu = <section>
+                <section>
+                    <h1>Consultés récemment</h1>
+                    {Home.renderPlacesList(this.state.Places)}
+                </section>
+                <section>
+                    <h1>Suggestions</h1>
+                    {Home.renderPlacesList(this.state.Places)}
+                </section>
+                <section>
+                    <h1>Près de chez vous</h1>
+                    {Home.renderPlacesList(this.state.Places)}
+                </section>
+            </section>;
+        } else {
+            contenu = <section>
+                <h1>Destinations populaires</h1>
+                {Home.renderPlacesList(this.state.Places)}
+            </section>;
+        }
+
         return (
           <div>
-                {Home.renderPlacesList(this.state.Places)}
+                {contenu}
           </div>
         );
   }

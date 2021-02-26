@@ -16,21 +16,19 @@ export class SearchPage extends Component {
     }
 
     static renderPlacesList(places) {
-        console.log(places);
         if ((places !== null) && (places.length !== 0)) {
             return (
-                <section>
-                    <h1>Resultats de la recherche</h1>
+                 <div className="placeList">
                     {
                         places.map(place => {
                             return <PlaceCard key={place.placeId} id={place.placeId} title={place.title} city={place.city} />;
                         })
                     }
-                </section>
+                </div>
             );
         }
         else {
-            return (<div className='jumbotron '><h1 class="display-4">Aucun lieu ne correspond a votre recherche</h1></div>);
+            return (<div className='jumbotron '><h1 className="display-4">Aucun lieu ne correspond à votre recherche</h1></div>);
         }
     }
 
@@ -41,7 +39,17 @@ export class SearchPage extends Component {
         });
 
         if (res.ok) {
-            res.json().then(data => this.setState({ Places: data }));
+            const searchText = this.props.match.params.text.toLowerCase();
+
+            res.json().then(data => this.setState({
+                Places: data.filter(place =>
+                    (
+                        place.street.toLowerCase().includes(searchText) ||
+                        place.city.toLowerCase().includes(searchText) ||
+                        place.state.toLowerCase().includes(searchText)
+                    )
+                )
+            }));
         } else {
             this.setState({ Places: null });
         }
@@ -49,9 +57,12 @@ export class SearchPage extends Component {
 
     render() {
         return (
-          <div>
-                {SearchPage.renderPlacesList(this.state.Places)}
-          </div>
+            <div>
+                <section>
+                    <h1>Résultats de la recherche</h1>
+                    {SearchPage.renderPlacesList(this.state.Places)}
+                </section>
+            </div>
         );
   }
 }
