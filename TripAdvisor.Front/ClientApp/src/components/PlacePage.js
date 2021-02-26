@@ -18,7 +18,10 @@ export class PlacePage extends Component {
       this.state = {
           Comments: [],
           Place: [],
+          sort: null
       };
+
+      this.setSort = this.setSort.bind(this)
     }
 
     componentDidMount() {
@@ -26,8 +29,16 @@ export class PlacePage extends Component {
         this.findPlace();
     }
 
+    setSort = (nSort) => {
+        if (nSort !== this.state.sort) {
+            this.setState({
+                sort: nSort
+            });
+            console.log(nSort);
+        }
+	}
+
     static renderCommentsList(comments) {
-        console.log(comments);
         if ((comments !== null) && (comments.length !== 0)) {
             return (
                 <section>
@@ -43,7 +54,7 @@ export class PlacePage extends Component {
     }
 
     async populateCommentsList() {
-        const res = await fetch('comments', {
+        const res = await fetch('comments/place/' + this.props.match.params.id, {
             method: 'GET',
             headers: { 'Content-type': 'application/json' }
         });
@@ -75,10 +86,10 @@ export class PlacePage extends Component {
          <Container fluid className="pt-5">
              <Row>
                  <Col md="4" className="mr-4">
-                     <PlaceCardDetailed key={this.state.Place.placeId} title={this.state.Place.title} city={this.state.Place.city} />
+                     <PlaceCardDetailed key={this.state.Place.placeId} id={this.state.Place.placeId} title={this.state.Place.title} city={this.state.Place.city} />
                  </Col>
                  <Col className="mt-5">
-                     <SortMenu />
+                     <SortMenu setSort={this.setSort}/>
                      {PlacePage.renderCommentsList(this.state.Comments)}
                  </Col>
              </Row>
