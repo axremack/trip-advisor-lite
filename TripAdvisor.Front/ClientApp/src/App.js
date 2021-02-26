@@ -46,8 +46,8 @@ export default class App extends Component {
 				<Route exact path='/' component={Home} />
 				<Route exact path='/placecard' component={PlaceCard} />
 				<Route exact path='/place/:id' component={PlacePage} />
-				<Route exact path='/place/:id/addcomment/' render={(props) => <ViewForm {...props} userId={this.state.token} />} />
-				<Route exact path='/place/addplace' render={(props) => <PlaceForm {...props} Userid={this.state.token} />} />
+				<Route exact path='/place/:id/addcomment' render={(props) => <ViewForm {...props} userId={this.state.token} />} />
+				<Route exact path='/user/:id/addplace' render={(props) => <PlaceForm {...props} Userid={this.state.token} />} />
 				<Route exact path='/user' component={UserPage} />
 				<Route exact path='/search/:text' component={SearchPage} />
 				<Route path='/counter' component={Counter}/>
