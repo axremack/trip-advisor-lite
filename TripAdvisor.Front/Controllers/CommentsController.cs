@@ -22,12 +22,12 @@ namespace TripAdvisor.Controllers
             _context = context;
         }
 
-        // GET: api/<CommentsController>
+        // GET: /comments
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comment>>> Get() =>
             await _context.Comments.ToListAsync();
 
-        // GET api/<CommentsController>/5
+        // GET /comments/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Comment>> GetById(int id)
         {
@@ -39,7 +39,31 @@ namespace TripAdvisor.Controllers
             return item;
         }
 
-        // POST api/<CommentsController>
+        // GET /comments/user/5
+        [HttpGet("user/{id}")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsOfUser(int id)
+        {
+            var item = await _context.Comments.Where(c => c.UserId == id).ToListAsync();
+            if (item == null)
+            {
+                return NotFound("No comments");
+            }
+            return item;
+        }
+
+        // GET /comments/place/5
+        [HttpGet("place/{id}")]
+        public async Task<ActionResult<IEnumerable<Comment>>> GetCommentsOfPlace(int id)
+        {
+            var item = await _context.Comments.Where(c => c.PlaceId == id).ToListAsync();
+            if (item == null)
+            {
+                return NotFound("No comments");
+            }
+            return item;
+        }
+
+        // POST /comments
         [HttpPost]
         public async Task<ActionResult<Comment>> Post([FromBody] Comment comment)
         {
@@ -59,7 +83,7 @@ namespace TripAdvisor.Controllers
             return CreatedAtAction(nameof(Get), new { id = comment.CommentId }, comment);
         }
 
-        // PUT api/<CommentsController>/5
+        // PUT /comments/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] Comment comment)
         {
@@ -89,7 +113,7 @@ namespace TripAdvisor.Controllers
             return NoContent();
         }
 
-        // DELETE api/<CommentsController>/5
+        // DELETE /comments/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Comment>> Delete(long id)
         {

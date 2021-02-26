@@ -42,7 +42,6 @@ export class NavMenu extends Component {
 
 	render() {
 		const isLoggedIn = this.state.appState.token;
-		console.log(isLoggedIn);
 		let button = null;
 
 		if (isLoggedIn) {
