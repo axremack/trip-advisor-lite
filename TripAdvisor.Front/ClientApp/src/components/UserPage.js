@@ -31,13 +31,48 @@ export class UserPage extends Component {
         this.populateCommentsList();
     }
 
-    static renderCommentsList(comments) {
-        console.log(comments);
-        if ((comments !== null) && (comments.length !== 0)) {
+    setSort = (nSort) => {
+        if (nSort !== this.state.sort) {
+            this.setState({
+                sort: nSort
+            });
+            console.log(nSort);
+        }
+    }
+
+    renderCommentsList = () => {
+        if ((this.state.Comments !== null) && (this.state.Comments.length !== 0)) {
+            switch (this.state.sort) {
+                case 'old':
+                    this.state.Comments.sort(function (a, b) {
+                        return (new Date(a.date) < new Date(b.date) ? -1 : 1);
+                    });
+                    break;
+                case 'min-rank':
+                    this.state.Comments.sort(function (a, b) {
+                        return (a.rank < b.rank ? -1 : 1);
+                    });
+                    break;
+                case 'max-rank':
+                    this.state.Comments.sort(function (a, b) {
+                        return (a.rank > b.rank ? -1 : 1);
+                    });
+                    break;
+                case 'alpha':
+                    this.state.Comments.sort(function (a, b) {
+                        return (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+                    });
+                    break;
+                default:
+                    this.state.Comments.sort(function (a, b) {
+                        return (new Date(a.date) > new Date(b.date) ? -1 : 1);
+                    });
+            }
+
             return (
                 <section>
-                    { comments.map(comment => {
-                        return <UserCommentCard key={comment.commentId} title={comment.title} place={comment.placeId} rank={comment.rank} content={comment.content} date={comment.date} />
+                    { this.state.Comments.map(comment => {
+                        return <PlaceCommentCard key={comment.commentId} title={comment.title} user={comment.userId} rank={comment.rank} content={comment.content} date={comment.date} />
                     })
                     }
                 </section>
@@ -82,8 +117,8 @@ export class UserPage extends Component {
                         <UserCardDetailed key={this.state.User.userId} id={this.state.User.userId} firstname={this.state.User.firstName} surname={this.state.User.surName} city={this.state.User.city} token={this.state.token} />
                     </Col>
                     <Col className="mt-5">
-                        <SortMenu />
-                        {UserPage.renderCommentsList(this.state.Comments)}
+                        <SortMenu setSort={this.setSort} />
+                        {this.renderCommentsList()}
                     </Col>
                 </Row>
             </Container>
