@@ -50,7 +50,7 @@ export class PlaceCardDetailed extends Component {
 		let numberComments = null;
 		
 		if ((this.state.Comments !== null) && (this.state.Comments.length !== 0)) {
-			let avg = this.AvgRank(this.state.Comments);
+			let avg = this.AvgRank(this.state.Comments).toFixed(1);
 			numberComments =
 				<div>
 					Note moyenne ({this.state.Comments.length} avis)<br />

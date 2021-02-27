@@ -35,11 +35,38 @@ export class PlacePage extends Component {
 		}
 	}
 
-	static renderCommentsList(comments) {
-		if ((comments !== null) && (comments.length !== 0)) {
+	renderCommentsList = () => {
+		if ((this.state.Comments !== null) && (this.state.Comments.length !== 0)) {
+			switch (this.state.sort) {
+				case 'old':
+					this.state.Comments.sort(function (a, b) {
+						return (new Date(a.date) < new Date(b.date) ? -1 : 1);
+					});
+					break;
+				case 'min-rank':
+					this.state.Comments.sort(function (a, b) {
+						return (a.rank < b.rank ? -1 : 1);
+					});
+					break;
+				case 'max-rank':
+					this.state.Comments.sort(function (a, b) {
+						return (a.rank > b.rank ? -1 : 1);
+					});
+					break;
+				case 'alpha':
+					this.state.Comments.sort(function (a, b) {
+						return (a.title.toLowerCase() < b.title.toLowerCase() ? -1 : 1);
+					});
+					break;
+				default:
+					this.state.Comments.sort(function (a, b) {
+						return (new Date(a.date) > new Date(b.date) ? -1 : 1);
+					});
+			}
+
 			return (
 				<section>
-					{ comments.map(comment => {
+					{ this.state.Comments.map(comment => {
 						return <PlaceCommentCard key={comment.commentId} title={comment.title} user={comment.userId} rank={comment.rank} content={comment.content} date={comment.date} />
 					})
 					}
@@ -86,7 +113,7 @@ export class PlacePage extends Component {
 					</Col>
 					<Col className="mt-5">
 						<SortMenu setSort={this.setSort} />
-						{PlacePage.renderCommentsList(this.state.Comments)}
+						{this.renderCommentsList()}
 					</Col>
 				</Row>
 			</Container>

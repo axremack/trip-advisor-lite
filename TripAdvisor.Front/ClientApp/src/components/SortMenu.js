@@ -23,7 +23,7 @@ export class SortMenu extends Component {
 								Trier par ...
 							</DropdownToggle>
 							<DropdownMenu>
-								<DropdownItem onClick={ () => this.props.setSort('recent') }>Plus recent</DropdownItem>
+								<DropdownItem onClick={ () => this.props.setSort(null) }>Plus recent</DropdownItem>
 								<DropdownItem onClick={ () => this.props.setSort('old') }>Plus ancien</DropdownItem>
 								<DropdownItem onClick={ () => this.props.setSort('min-rank') }>Note min</DropdownItem>
 								<DropdownItem onClick={ () => this.props.setSort('max-rank') }>Note max</DropdownItem>
