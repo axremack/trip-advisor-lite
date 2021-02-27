@@ -72,7 +72,7 @@ export class UserPage extends Component {
             return (
                 <section>
                     { this.state.Comments.map(comment => {
-                        return <PlaceCommentCard key={comment.commentId} title={comment.title} user={comment.userId} rank={comment.rank} content={comment.content} date={comment.date} />
+                        return <UserCommentCard key={comment.commentId} title={comment.title} place={comment.placeId} rank={comment.rank} content={comment.content} date={comment.date} />
                     })
                     }
                 </section>

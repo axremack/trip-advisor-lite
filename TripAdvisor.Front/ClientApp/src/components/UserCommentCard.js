@@ -55,7 +55,7 @@ export class UserCommentCard extends Component {
 					<Col>{this.props.content}</Col>
 				</Row>
 				<Row className="pb-2">
-					<Col>Date de visite : {this.props.date}</Col>
+					<Col>Date de visite : {new Date(this.props.date).toLocaleDateString()}</Col>
 				</Row>
 			</Container>
 		);
