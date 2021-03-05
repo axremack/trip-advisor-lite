@@ -59,8 +59,8 @@ export class NavMenu extends Component {
 					</DropdownToggle>
 					<DropdownMenu right>
 						<DropdownItem>
-							Profil
-                        </DropdownItem>
+							<NavLink tag={Link} className="text-dark" to={"/user/" + this.state.token}>Profil</NavLink>
+						</DropdownItem>
 						<DropdownItem onClick={() => {
 							localStorage.clear();
 							this.state.setToken(null);
@@ -97,7 +97,7 @@ export class NavMenu extends Component {
 							<div className="navbar-nav flex-grow">
 								{button}
 								<NavItem>
-									<NavLink tag={Link} className="text-dark pl-5" to="/counter">Ecrire un avis</NavLink>
+									<NavLink tag={Link} className="text-dark pl-5" to="/">Ecrire un avis</NavLink>
 								</NavItem>
 							</div>
 						</Collapse>

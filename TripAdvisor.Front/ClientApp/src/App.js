@@ -52,8 +52,6 @@ export default class App extends Component {
 				<Route exact path='/user/:id/addplace' render={(props) => <PlaceForm {...props} userId={this.state.token} />} />
 				<Route exact path='/user/:id' render={(props) => <UserPage {...props} userId={this.state.token} />} />
 				<Route exact path='/search/:text' component={SearchPage} />
-				<Route path='/counter' component={Counter}/>
-				<Route path='/fetch-data' component={FetchData}/>
 				<Route path='/login' render={(props) => <Login {...props} setToken={this.setToken}/>} />
 				<Route path='/register' component={Register} />
 			</Layout>
