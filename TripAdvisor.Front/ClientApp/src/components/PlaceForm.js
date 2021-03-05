@@ -58,7 +58,7 @@ export class PlaceForm extends Component {
 			<Form id="valid" noValidate onSubmit={this.onSubmit}>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="title" id="TitleInput" placeholder="Titre" required maxlength="255"/>
+						<Input type="text" name="title" id="TitleInput" placeholder="Titre" required maxLength="255"/>
 						<FormFeedback invalid="true">Entrez un titre (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
@@ -70,31 +70,43 @@ export class PlaceForm extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="street" id="StreetInput" placeholder="Rue" required maxlength="255" />
+						<Input type="number" name="BedRoomCount" id="BedRoomCountInput" placeholder="Nombre de chambres" required maxLength="2000" />
+						<FormFeedback invalid="true">Entrez le nombre de chambres (max. 2000 caractères)</FormFeedback>
+					</FormGroup>
+				</Col>
+				<Col md={6}>
+					<FormGroup>
+						<Input type="number" name="BathRoomCount" id="BathRoomCountInput" placeholder="Nombre de salles de bains" required maxLength="2000" />
+						<FormFeedback invalid="true">Entrez le nombre de salles de bain (max. 2000 caractères)</FormFeedback>
+					</FormGroup>
+				</Col>
+				<Col md={6}>
+					<FormGroup>
+						<Input type="text" name="street" id="StreetInput" placeholder="Rue" required maxLength="255" />
 						<FormFeedback invalid="true">Entrez une rue (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="street" id="CityInput" placeholder="Ville" required maxlength="255" />
+						<Input type="text" name="street" id="CityInput" placeholder="Ville" required maxLength="255" />
 						<FormFeedback invalid="true">Entrez une ville (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="zipcode" id="ZipCodeInput" placeholder="ZipCode" required maxlength="255" />
+						<Input type="text" name="zipcode" id="ZipCodeInput" placeholder="ZipCode" required maxLength="255" />
 						<FormFeedback invalid="true">Entrez un zip (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="state" id="StateInput" placeholder="Pays" required maxlength="255" />
+						<Input type="text" name="state" id="StateInput" placeholder="Pays" required maxLength="255" />
 						<FormFeedback invalid="true">Entrez un pays (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="number" name="price" id="PriceInput" placeholder="Prix" required maxlength="255" />
+						<Input type="number" name="price" id="PriceInput" placeholder="Prix" required maxLength="255" />
 						<FormFeedback invalid="true">Entrez un prix (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
