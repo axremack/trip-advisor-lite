@@ -121,6 +121,9 @@ export class UserPage extends Component {
                         {this.renderCommentsList()}
                     </Col>
                 </Row>
+                <NavItem>
+                    <NavLink tag={Link} className="text-dark pl-5" to={"/user/" + this.state.User.userId + "/addplace"}>Ajouter un lieu</NavLink>
+                </NavItem> 
             </Container>
         );
     }
