@@ -54,6 +54,8 @@ namespace DAL.Models
 		{
 			RuleFor(p => p.Title).NotEmpty().WithMessage("Enter a title");
 			RuleFor(p => p.Description).NotEmpty().WithMessage("Enter a description");
+			RuleFor(p => p.BedRoomCount).NotEqual(0).WithMessage("Enter a valid number");
+			RuleFor(p => p.BathRoomCount).NotEqual(0).WithMessage("Enter a valid number");
 			RuleFor(p => p.Street).NotEmpty().WithMessage("Enter a street");
 			RuleFor(p => p.City).NotEmpty().WithMessage("Enter a city");
 			RuleFor(p => p.ZipCode).NotEmpty().WithMessage("Enter a zip code");

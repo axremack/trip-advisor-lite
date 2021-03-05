@@ -1,4 +1,8 @@
 ﻿import React, { Component } from 'react';
+import {
+    Container,
+    Row
+} from 'reactstrap';
 import { PlaceCard } from './PlaceCard';
 
 export class Home extends Component {
@@ -29,14 +33,9 @@ export class Home extends Component {
     static renderPlacesList(places) {
         if ((places !== null) && (places.length !== 0)) {
             return (
-                <div className="placeList">
-                    {
-                        places.map(place => {
-                            return <PlaceCard key={place.placeId} id={place.placeId} title={place.title} city={place.city} />;
-                        })
-                    }
-                </div>
-            );
+                places.map(place => {
+                    return <PlaceCard key={place.placeId} id={place.placeId} title={place.title} city={place.city} />;
+                }));
         }
         else {
             return (<div className='jumbotron '><h1 className="display-4">Aucun lieu pour le moment</h1></div>);
@@ -61,31 +60,47 @@ export class Home extends Component {
         let contenu = null;
 
         if (isLoggedIn) {
-            contenu = <section>
-                <section>
-                    <h1>Consultés récemment</h1>
-                    {Home.renderPlacesList(this.state.Places)}
-                </section>
-                <section>
-                    <h1>Suggestions</h1>
-                    {Home.renderPlacesList(this.state.Places)}
-                </section>
-                <section>
-                    <h1>Près de chez vous</h1>
-                    {Home.renderPlacesList(this.state.Places.filter(place => (place.ownerId !== null) && (place.ownerId == this.state.token)))}
-                </section>
-            </section>;
+            contenu = <Container>
+                        <Container className="mb-5">
+                            <Row className="mb-3">
+                                <h1>Consultés récemment</h1>
+                            </Row>
+                            <Row>
+                                {Home.renderPlacesList(this.state.Places)}
+                            </Row>
+                        </Container>
+                        <Container className="mb-5">
+                            <Row className="mb-3">
+                                <h1>Suggestions</h1>
+                            </Row>
+                            <Row>
+                                {Home.renderPlacesList(this.state.Places)}
+                            </Row>
+                        </Container>
+                        <Container className="mb-5">
+                            <Row className="mb-3">
+                                <h1>Près de chez vous</h1>
+                            </Row>
+                            <Row>
+                                {Home.renderPlacesList(this.state.Places.filter(place => (place.ownerId !== null) && (place.ownerId == this.state.token)))}
+                            </Row>
+                        </Container>
+                      </Container>
         } else {
-            contenu = <section>
-                <h1>Destinations populaires</h1>
-                {Home.renderPlacesList(this.state.Places)}
-            </section>;
+            contenu = <Container className="mb-5">
+                            <Row className="mb-3">
+                                <h1>Consultés récemment</h1>
+                            </Row>
+                            <Row>
+                                {Home.renderPlacesList(this.state.Places)}
+                            </Row>
+                      </Container>
         }
 
         return (
-          <div>
+            <Container>
                 {contenu}
-          </div>
+            </Container>
         );
   }
 }

@@ -64,7 +64,7 @@ export class PlaceForm extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="textarea" name="description" id="DescritpionInput" placeholder="Description" required maxlength="2000" />
+						<Input type="textarea" name="description" id="DescritpionInput" placeholder="Description" required maxLength="2000" />
 						<FormFeedback invalid="true">Entrez une description (max. 2000 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
