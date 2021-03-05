@@ -25,7 +25,6 @@ export class UserCommentCard extends Component {
 			method: 'GET',
 			headers: { 'Content-type': 'application/json' }
 		});
-		console.log(res);
 
 		if (res.ok) {
 			res.json().then(data => this.setState({ Place: data }));

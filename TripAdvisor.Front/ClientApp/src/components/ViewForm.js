@@ -59,16 +59,8 @@ export class ViewForm extends Component {
 			<Form id="validation" noValidate onSubmit={this.onSubmit}>
 				<Col md={6}>
 					<FormGroup>
-						<Input
-							type="number"
-							name="Note"
-							id="noteInput"
-							placeholder="Note"
-							min={1}
-							max={5}
-							required
-						/>
-						<FormFeedback invalid="true">Entrez une note entre 1 et 5</FormFeedback>
+						<Input type="text" name="title" id="titleInput" placeholder="Titre" required maxLength="255" />
+						<FormFeedback invalid="true">Entrez un titre (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
@@ -79,8 +71,16 @@ export class ViewForm extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="title" id="titleInput" placeholder="Titre" required maxLength="255" />
-						<FormFeedback invalid="true">Entrez un titre (max. 255 caractères)</FormFeedback>
+						<Input
+							type="number"
+							name="Note"
+							id="noteInput"
+							placeholder="Note"
+							min={1}
+							max={5}
+							required
+						/>
+						<FormFeedback invalid="true">Entrez une note entre 1 et 5</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>

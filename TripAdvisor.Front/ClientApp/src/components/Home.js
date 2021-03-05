@@ -97,7 +97,7 @@ export class Home extends Component {
                                 <h1>Vos lieux</h1>
                             </Row>
                             <Row>
-                                {Home.renderPlacesList(this.state.Places.filter(place => (place.ownerId !== null) && (place.ownerId == this.state.token)))}
+                                {Home.renderPlacesList(this.state.Places.filter(place => (place.ownerId !== null) && (place.ownerId === this.state.token)))}
                             </Row>
                         </Container>
                       </Container>

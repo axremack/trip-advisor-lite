@@ -2,14 +2,11 @@
 import {
     Container,
     Row,
-    Col,
-    NavItem,
-    NavLink
+    Col
 } from 'reactstrap';
 import { UserCommentCard } from "./UserCommentCard"
 import { UserCardDetailed } from "./UserCardDetailed"
 import { SortMenu } from './SortMenu';
-import { Link } from 'react-router-dom';
 
 
 
@@ -21,12 +18,18 @@ export class UserPage extends Component {
         this.state = {
             Comments: [],
             User: [],
-            token: props.token
+            token: props.userId
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({ token: nextProps.token });
+    static getDerivedStateFromProps(props, state) {
+        if (props.userId !== state.token) {
+            return {
+                token: props.userId
+            };
+        }
+
+        return null;
     }
 
     componentDidMount() {
@@ -39,7 +42,6 @@ export class UserPage extends Component {
             this.setState({
                 sort: nSort
             });
-            console.log(nSort);
         }
     }
 
@@ -117,16 +119,13 @@ export class UserPage extends Component {
             <Container fluid className="pt-5">
                 <Row>
                     <Col md="4" className="mr-4">
-                        <UserCardDetailed key={this.state.User.userId} id={this.state.User.userId} firstname={this.state.User.firstName} surname={this.state.User.surName} city={this.state.User.city} token={this.state.token} />
+                        <UserCardDetailed key={this.state.User.userId} id={this.state.User.userId} firstname={this.state.User.firstName} surname={this.state.User.surName} token={this.state.token} />
                     </Col>
                     <Col className="mt-5">
                         <SortMenu setSort={this.setSort} />
                         {this.renderCommentsList()}
                     </Col>
                 </Row>
-                <NavItem>
-                    <NavLink tag={Link} className="text-dark pl-5" to={"/user/" + this.state.User.userId + "/addplace"}>Ajouter un lieu</NavLink>
-                </NavItem> 
             </Container>
         );
     }

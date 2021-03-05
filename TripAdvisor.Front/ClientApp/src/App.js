@@ -7,8 +7,6 @@ import { PlaceCard } from './components/PlaceCard';
 import { PlacePage } from './components/PlacePage';
 import { PlaceForm } from './components/PlaceForm';
 import { ViewForm } from './components/ViewForm';
-import { UserCommentCard } from './components/UserCommentCard';
-import { UserCardDetailed } from './components/UserCardDetailed';
 import { UserPage } from './components/UserPage';
 import { Register } from './components/Register';
 import { SearchPage } from './components/SearchPage';
