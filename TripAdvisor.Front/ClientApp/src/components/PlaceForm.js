@@ -117,7 +117,7 @@ export class PlaceForm extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="number" name="tag" id="TagInput" placeholder="Tag" required maxLength="255" />
+						<Input type="text" name="tag" id="TagInput" placeholder="Tag" required maxLength="255" />
 						<FormFeedback invalid="true">Entrez un tag (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
