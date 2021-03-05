@@ -2,11 +2,14 @@
 import {
     Container,
     Row,
-    Col
+    Col,
+    NavItem,
+    NavLink
 } from 'reactstrap';
 import { UserCommentCard } from "./UserCommentCard"
 import { UserCardDetailed } from "./UserCardDetailed"
 import { SortMenu } from './SortMenu';
+import { Link } from 'react-router-dom';
 
 
 
