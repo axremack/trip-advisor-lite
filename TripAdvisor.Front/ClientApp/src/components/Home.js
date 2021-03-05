@@ -12,6 +12,7 @@ export class Home extends Component {
         super(props);
         this.state = {
             Places: [],
+            PopularPlaces: [],
             token: props.userId
         }
     }
@@ -55,18 +56,32 @@ export class Home extends Component {
         }
     }
 
+    async populatePopularPlacesList() {
+        const res = await fetch('places/popular', {
+            method: 'GET',
+            headers: { 'Content-type': 'application/json' }
+        });
+
+        if (res.ok) {
+            res.json().then(data => this.setState({ PopularPlaces: data }));
+        } else {
+            this.setState({ PopularPlaces: null });
+        }
+    }
+
     render() {
         const isLoggedIn = this.state.token;
         let contenu = null;
+        console.log(this.state.PopularPlaces);
 
         if (isLoggedIn) {
             contenu = <Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
-                                <h1>Consultés récemment</h1>
+                                <h1>Destinations populaires</h1>
                             </Row>
                             <Row>
-                                {Home.renderPlacesList(this.state.Places)}
+                                {Home.renderPlacesList(this.state.PopularPlaces)}
                             </Row>
                         </Container>
                         <Container className="mb-5">
@@ -79,7 +94,7 @@ export class Home extends Component {
                         </Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
-                                <h1>Près de chez vous</h1>
+                                <h1>Vos lieux</h1>
                             </Row>
                             <Row>
                                 {Home.renderPlacesList(this.state.Places.filter(place => (place.ownerId !== null) && (place.ownerId == this.state.token)))}
@@ -89,10 +104,10 @@ export class Home extends Component {
         } else {
             contenu = <Container className="mb-5">
                             <Row className="mb-3">
-                                <h1>Consultés récemment</h1>
+                                <h1>Destinations populaires</h1>
                             </Row>
                             <Row>
-                                {Home.renderPlacesList(this.state.Places)}
+                                {Home.renderPlacesList(this.state.PopularPlaces)}
                             </Row>
                       </Container>
         }

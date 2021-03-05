@@ -40,6 +40,51 @@ namespace TripAdvisor.Controllers
             return item;
         }
 
+        // GET /places/popular
+        [HttpGet("popular")]
+        public async Task<ActionResult<IEnumerable<Place>>> GetPopular()
+        {
+            var items = await _context.Places.ToListAsync();
+            if (items == null || !items.Any())
+            {
+                return NotFound("Item not Found");
+            } else
+            {
+                var avgOfAvg = 0;
+                var total = 0;
+                var listAvg = new List<int>();
+                var listToRemove = new List<int>();
+
+                foreach (var place in items)
+                {
+                    var avg = 0;
+                    foreach (var comment in place.Comments)
+                    {
+                        avg += comment.Rank;
+                    }
+
+                    if(place.Comments.Count != 0) { avg /= place.Comments.Count; }
+                    list.Add(avg);
+                    total++;
+                    if (avg != 0) { avgOfAvg += avg; }
+                }
+
+                if (total != 0) { avgOfAvg /= items.Count; }
+
+                for(int i = 0; i < items.Count; i++)
+                {
+                    if (list[i] < avgOfAvg)
+                    {
+                        listToRemove.Add(items[i].PlaceId);
+                    }
+                }
+                
+                items = await items.Where(place => listToRemove.All(id => id != place.PlaceId)).ToListAsync();
+            }
+
+            return items;
+        }
+
         // POST /places
         [HttpPost]
         public async Task<ActionResult<Place>> Post([FromBody] Place place)
