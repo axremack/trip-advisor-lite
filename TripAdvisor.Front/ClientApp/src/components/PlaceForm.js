@@ -36,7 +36,8 @@ export class PlaceForm extends Component {
 				City: document.getElementById("CityInput").value,
 				ZipCode: document.getElementById("ZipCodeInput").value,
 				State: document.getElementById("StateInput").value,
-				Price: document.getElementById("PriceInput").value
+				Price: document.getElementById("PriceInput").value,
+				Tag: document.getElementById("TagInput").value
 			});
 			
 			const res = await fetch('places', {
@@ -112,6 +113,12 @@ export class PlaceForm extends Component {
 					<FormGroup>
 						<Input type="number" name="price" id="PriceInput" placeholder="Prix" required maxLength="255" />
 						<FormFeedback invalid="true">Entrez un prix (max. 255 caractères)</FormFeedback>
+					</FormGroup>
+				</Col>
+				<Col md={6}>
+					<FormGroup>
+						<Input type="number" name="tag" id="TagInput" placeholder="Tag" required maxLength="255" />
+						<FormFeedback invalid="true">Entrez un tag (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<div>
