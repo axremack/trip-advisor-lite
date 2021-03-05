@@ -4,10 +4,11 @@ import { PlaceCard } from './PlaceCard';
 export class SearchPage extends Component {
     static displayName = SearchPage.name;
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            Places: []
+            Places: [],
+            Text: this.props.match.params.text
         }
     }
 
@@ -32,6 +33,16 @@ export class SearchPage extends Component {
         }
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.match.params.text !== state.Text) {
+            return {
+                Text: props.match.params.text
+            };
+        }
+
+        return null;
+    }
+
     async populatePlacesList() {
         const res = await fetch('places', {
             method: 'GET',
@@ -39,7 +50,7 @@ export class SearchPage extends Component {
         });
 
         if (res.ok) {
-            const searchText = this.props.match.params.text.toLowerCase();
+            const searchText = this.state.Text.toLowerCase();
 
             res.json().then(data => this.setState({
                 Places: data.filter(place =>
