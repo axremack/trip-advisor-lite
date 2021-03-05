@@ -51,7 +51,7 @@ export class PlaceForm extends Component {
 
 	render() {
 		if (this.state.doRedirect) {
-			return <Redirect push to="/place/addplace" with="Votre lieu a été ajouté" />
+			return <Redirect push to={"/user/" + this.props.Userid } with="Votre lieu a été ajouté" />
 		}
 
 		return (
