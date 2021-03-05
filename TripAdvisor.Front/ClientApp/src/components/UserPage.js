@@ -21,12 +21,18 @@ export class UserPage extends Component {
         this.state = {
             Comments: [],
             User: [],
-            token: props.token
+            token: props.userId
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({ token: nextProps.token });
+    static getDerivedStateFromProps(props, state) {
+        if (props.userId !== state.token) {
+            return {
+                token: props.userId
+            };
+        }
+
+        return null;
     }
 
     componentDidMount() {

@@ -27,20 +27,24 @@ export class PlaceForm extends Component {
 
 		if (form.checkValidity() === true) {
 			let data = JSON.stringify({
-				UserId: this.props.Userid,
-				Name: document.getElementById("NameInput").value,
+				OwnerId: this.props.userId,
+				Title: document.getElementById("TitleInput").value,
 				Description: document.getElementById("DescritpionInput").value,
+				BedRoomCount: document.getElementById("BedRoomCountInput").value,
+				BathRoomCount: document.getElementById("BathRoomCountInput").value,
+				Street: document.getElementById("StreetInput").value,
 				City: document.getElementById("CityInput").value,
-				Type: document.getElementById("PlaceTypeInput").value,
-				Tags: document.getElementById("TagInput").value
+				ZipCode: document.getElementById("ZipCodeInput").value,
+				State: document.getElementById("StateInput").value,
+				Price: document.getElementById("PriceInput").value
 			});
-
+			
 			const res = await fetch('places', {
 				method: 'POST',
 				headers: { 'Content-type': 'application/json' },
 				body: data
 			});
-
+			
 			if (res.status === 201) {
 				this.setState({ doRedirect: true });
 			}
@@ -51,7 +55,7 @@ export class PlaceForm extends Component {
 
 	render() {
 		if (this.state.doRedirect) {
-			return <Redirect push to={"/user/" + this.props.Userid } with="Votre lieu a été ajouté" />
+			return <Redirect push to={"/user/" + this.props.userId } with="Votre lieu a été ajouté" />
 		}
 
 		return (
