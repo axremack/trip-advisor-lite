@@ -23,15 +23,17 @@ export class UserCardDetailed extends Component {
     }
 
     async populateCommentsList() {
-        const res = await fetch('comments/user/' + this.props.id, {
-            method: 'GET',
-            headers: { 'Content-type': 'application/json' }
-        });
+        if (this.props.id) {
+            const res = await fetch('comments/user/' + this.props.id, {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json' }
+            });
 
-        if (res.ok) {
-            res.json().then(data => this.setState({ Comments: data }));
-        } else {
-            this.setState({ Comments: null });
+            if (res.ok) {
+                res.json().then(data => this.setState({ Comments: data }));
+            } else {
+                this.setState({ Comments: null });
+            }
         }
     }
 
@@ -39,11 +41,9 @@ export class UserCardDetailed extends Component {
         const isLoggedIn = this.props.token;
         let button = null;
         let numberComments = null;
-        console.log(isLoggedIn);
-        console.log(this.props.id);
 
-        if (isLoggedIn === this.props.id) {
-            button = <Button tag={Link} to={"/"} color="success">Ajouter un lieu</Button>;
+        if (Number(isLoggedIn) === this.props.id) {
+            button = <Button tag={Link} to={"/user/" + this.props.id + "/addplace"} color="success">Ajouter un lieu</Button>;
         }
 
         if (this.state.Comments == null) {
