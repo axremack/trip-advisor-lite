@@ -15,7 +15,7 @@ export class PlaceCard extends Component {
 
 	render() {
 		return (
-			<Col sm="6">
+			<Col sm="3" className="pl-0">
 				<Card>
 					<CardImg top width="10%" src="/img_bidon.jpg" alt="Place Image" />
 					<CardBody>
