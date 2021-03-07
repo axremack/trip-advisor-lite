@@ -153,8 +153,7 @@ export class PlaceForm extends Component {
 				</FormGroup>
 				<FormGroup>
 					<Label for="TagInput">Tags</Label>
-					<Input type="text" name="tag" id="TagInput" required maxLength="255" />
-					<FormFeedback invalid="true">Entrez un tag (max. 255 caractères)</FormFeedback>
+					<Input type="text" name="tag" id="TagInput" maxLength="255" />
 				</FormGroup>
 				<ReactTags
 					ref={this.reactTags}
