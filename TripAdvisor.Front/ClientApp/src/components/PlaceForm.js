@@ -1,7 +1,7 @@
 ﻿import React, { Component } from 'react';
 import {
 	Form,
-	Col,
+	Label,
 	FormGroup,
 	Input,
 	Button,
@@ -61,66 +61,56 @@ export class PlaceForm extends Component {
 
 		return (
 			<Form id="valid" noValidate onSubmit={this.onSubmit}>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="text" name="title" id="TitleInput" placeholder="Titre" required maxLength="255"/>
-						<FormFeedback invalid="true">Entrez un titre (max. 255 caractères)</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="textarea" name="description" id="DescritpionInput" placeholder="Description" required maxLength="2000" />
-						<FormFeedback invalid="true">Entrez une description (max. 2000 caractères)</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="number" name="BedRoomCount" id="BedRoomCountInput" placeholder="Nombre de chambres" min={0} max={10000} required />
-						<FormFeedback invalid="true">Entrez le nombre de chambres (maximum 10 000)</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="number" name="BathRoomCount" id="BathRoomCountInput" placeholder="Nombre de salles de bains" min={0} max={10} required />
-						<FormFeedback invalid="true">Entrez le nombre de salles de bain (maximum 10)</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="text" name="street" id="StreetInput" placeholder="Rue" required maxLength="255" />
-						<FormFeedback invalid="true">Entrez une rue (max. 255 caractères)</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="text" name="street" id="CityInput" placeholder="Ville" required maxLength="255" />
-						<FormFeedback invalid="true">Entrez une ville (max. 255 caractères)</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="number" name="zipcode" id="ZipCodeInput" placeholder="Code Postal" required />
-						<FormFeedback invalid="true">Entrez un code postal</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="text" name="state" id="StateInput" placeholder="Pays" required maxLength="255" />
-						<FormFeedback invalid="true">Entrez un pays (max. 255 caractères)</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="number" name="price" id="PriceInput" placeholder="Prix" required/>
-						<FormFeedback invalid="true">Entrez un prix</FormFeedback>
-					</FormGroup>
-				</Col>
-				<Col md={6}>
-					<FormGroup>
-						<Input type="text" name="tag" id="TagInput" placeholder="Tag" required maxLength="255" />
-						<FormFeedback invalid="true">Entrez un tag (max. 255 caractères)</FormFeedback>
-					</FormGroup>
-				</Col>
+				<FormGroup>
+					<Label for="TitleInput">Nom du lieu</Label>
+					<Input type="text" name="title" id="TitleInput" required maxLength="255"/>
+					<FormFeedback invalid="true">Entrez un titre (max. 255 caractères)</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="DescritpionInput">Description</Label>
+					<Input type="textarea" name="description" id="DescritpionInput" placeholder="Entrez ici ce qui fait le charme du lieu" required maxLength="2000" />
+					<FormFeedback invalid="true">Entrez une description (max. 2000 caractères)</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="BedRoomCountInput">Nombre de chambres</Label>
+					<Input type="number" name="BedRoomCount" id="BedRoomCountInput" min={0} max={10000} required />
+					<FormFeedback invalid="true">Entrez le nombre de chambres (maximum 10 000)</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="BathRoomCountInput">Nombre de salles de bain</Label>
+					<Input type="number" name="BathRoomCount" id="BathRoomCountInput" min={0} max={10} required />
+					<FormFeedback invalid="true">Entrez le nombre de salles de bain (maximum 10)</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="StreetInput">Rue</Label>
+					<Input type="text" name="street" id="StreetInput" required maxLength="255" />
+					<FormFeedback invalid="true">Entrez une rue (max. 255 caractères)</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="CityInput">Ville</Label>
+					<Input type="text" name="street" id="CityInput" required maxLength="255" />
+					<FormFeedback invalid="true">Entrez une ville (max. 255 caractères)</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="ZipCodeInput">Code postal</Label>
+					<Input type="number" name="zipcode" id="ZipCodeInput" required />
+					<FormFeedback invalid="true">Entrez un code postal</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="StateInput">Pays</Label>
+					<Input type="text" name="state" id="StateInput" required maxLength="255" />
+					<FormFeedback invalid="true">Entrez un pays (max. 255 caractères)</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="PriceInput">Prix</Label>
+					<Input type="number" name="price" id="PriceInput" required/>
+					<FormFeedback invalid="true">Entrez un prix</FormFeedback>
+				</FormGroup>
+				<FormGroup>
+					<Label for="TagInput">Tags</Label>
+					<Input type="text" name="tag" id="TagInput" required maxLength="255" />
+					<FormFeedback invalid="true">Entrez un tag (max. 255 caractères)</FormFeedback>
+				</FormGroup>
 				<div>
 					<Button color="success">Valider</Button>{' '}
 				</div>

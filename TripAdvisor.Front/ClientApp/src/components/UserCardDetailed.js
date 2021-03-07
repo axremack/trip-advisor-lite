@@ -47,10 +47,10 @@ export class UserCardDetailed extends Component {
         }
 
         if (this.state.Comments == null) {
-            numberComments = <Col className="h4 p-0">0 avis écris</Col>;
+            numberComments = <Col className="h4 p-0">Aucun avis écrit</Col>;
         }
         else {
-            numberComments = <Col className="h4 p-0">{this.state.Comments.length} avis écris</Col>;
+            numberComments = <Col className="h4 p-0">{this.state.Comments.length} avis écrit{this.state.Comments.length > 1 ? 's' : '' }</Col>;
         }
 
         return (
