@@ -16,12 +16,12 @@ namespace TripAdvisor.Controllers
     [ApiController]
     public class PlacesController : ControllerBase
     {
-        private readonly TripAdvisorContext _context; //bdd
+        private readonly TripAdvisorContext _context; 
 
         public PlacesController(TripAdvisorContext context)
         {
             _context = context;
-        }//Constructeur bdd
+        }
 
         // GET: /places
         [HttpGet]
@@ -39,6 +39,26 @@ namespace TripAdvisor.Controllers
             }
             return item;
         }
+
+        // GET: /places/tags/5
+        [HttpGet("tags/{id}")]
+        public async Task<ActionResult<IEnumerable<Tag>>> GetPlaceTags(int id)
+        {
+            var item = await _context.Places.FindAsync(id);
+            var tabT = new List<Tag>();
+
+            if (item == null)
+            {
+                return NotFound("Item not Found");
+            }
+            else
+            {
+                tabT = item.Tags.ToList();
+            }
+
+            return tabT;
+        }
+
 
         // GET /places/popular
         [HttpGet("popular")]
