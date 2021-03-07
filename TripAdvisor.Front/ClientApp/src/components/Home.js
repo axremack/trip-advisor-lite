@@ -39,7 +39,7 @@ export class Home extends Component {
                 }));
         }
         else {
-            return (<div className='jumbotron '><h1 className="display-4">Aucun lieu pour le moment</h1></div>);
+            return (<div className='jumbotron '>Aucun lieu pour le moment</div>);
         }
     }
 
