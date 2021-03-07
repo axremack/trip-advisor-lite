@@ -40,8 +40,8 @@ namespace TripAdvisor.Controllers
             return item;
         }
 
-        // GET: /places/tags/5
-        [HttpGet("tags/{id}")]
+        // GET: /places/5/tags
+        [HttpGet("{id}/tags")]
         public async Task<ActionResult<IEnumerable<Tag>>> GetPlaceTags(int id)
         {
             var item = await _context.Places.FindAsync(id);
@@ -53,7 +53,7 @@ namespace TripAdvisor.Controllers
             }
             else
             {
-                tabT = item.Tags.ToList();
+                tabT = await _context.PlaceTags.Where(p => p.PlaceId == id).Select(p => p.Tag).ToListAsync();
             }
 
             return tabT;
@@ -105,10 +105,10 @@ namespace TripAdvisor.Controllers
 
         // POST /places
         [HttpPost]
-        public async Task<ActionResult<Place>> Post([FromBody] Place place)
+        public async Task<ActionResult<Place>> Post([FromBody] PlaceHelper place)
         {
             PlaceValidator validator = new PlaceValidator();
-            ValidationResult result = validator.Validate(place);
+            ValidationResult result = validator.Validate(place.Place);
             if (!result.IsValid)
             {
                 foreach (var failure in result.Errors)
@@ -117,12 +117,27 @@ namespace TripAdvisor.Controllers
                 }
             }
 
-            _context.Places.Add(place);
+            _context.Places.Add(place.Place);
+
             await _context.SaveChangesAsync();
 
+            foreach (var item in place.Tags)
+			{
+                _context.PlaceTags.Add(new PlaceTag() { PlaceId = place.Place.PlaceId, TagId = item.TagId });
+			}
 
-            return CreatedAtAction(nameof(Get), new { id = place.PlaceId }, place);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(Get), new { id = place.Place.PlaceId }, place.Place);
         }
+
+        public class PlaceHelper
+		{
+            public Place Place { get; set; }
+
+            public List<Tag> Tags { get; set; }
+		}
+
         // PUT /places/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(long id, [FromBody] Place place)

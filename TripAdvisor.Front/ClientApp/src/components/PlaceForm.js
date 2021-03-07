@@ -35,7 +35,7 @@ export class PlaceForm extends Component {
 
 		if (res.ok) {
 			res.json().then(data => {
-				this.setState({ suggestions: data.map(d => { return { id: d.tagId, name: d.type } }) });
+				this.setState({ suggestions: data.map(d => { return { id: d.tagId, name: d.type }; }) });
 			});
 		} else {
 			this.setState({ tags: null });
@@ -53,17 +53,19 @@ export class PlaceForm extends Component {
 
 		if (form.checkValidity() === true) {
 			let data = JSON.stringify({
-				OwnerId: this.props.userId,
-				Title: document.getElementById("TitleInput").value,
-				Description: document.getElementById("DescritpionInput").value,
-				BedRoomCount: document.getElementById("BedRoomCountInput").value,
-				BathRoomCount: document.getElementById("BathRoomCountInput").value,
-				Street: document.getElementById("StreetInput").value,
-				City: document.getElementById("CityInput").value,
-				ZipCode: document.getElementById("ZipCodeInput").value,
-				State: document.getElementById("StateInput").value,
-				Price: document.getElementById("PriceInput").value,
-				Tag: document.getElementById("TagInput").value
+				Place: {
+					OwnerId: this.props.userId,
+					Title: document.getElementById("TitleInput").value,
+					Description: document.getElementById("DescritpionInput").value,
+					BedRoomCount: document.getElementById("BedRoomCountInput").value,
+					BathRoomCount: document.getElementById("BathRoomCountInput").value,
+					Street: document.getElementById("StreetInput").value,
+					City: document.getElementById("CityInput").value,
+					ZipCode: document.getElementById("ZipCodeInput").value,
+					State: document.getElementById("StateInput").value,
+					Price: document.getElementById("PriceInput").value
+				},
+				Tags: this.state.tags.map(t => { return { TagId: t.id, Type: t.name }; })
 			});
 			
 			const res = await fetch('places', {

@@ -109,7 +109,7 @@ export class PlacePage extends Component {
 			<Container fluid className="pt-5">
 				<Row>
 					<Col md="4" className="mr-4">
-						<PlaceCardDetailed key={this.state.Place.placeId} id={this.state.Place.placeId} title={this.state.Place.title} city={this.state.Place.city} />
+						<PlaceCardDetailed key={this.state.Place.placeId} id={this.state.Place.placeId} title={this.state.Place.title} street={this.state.Place.street} zipCode={this.state.Place.zipCode} city={this.state.Place.city} state={this.state.Place.state}/>
 					</Col>
 					<Col className="mt-5">
 						<SortMenu setSort={this.setSort} />

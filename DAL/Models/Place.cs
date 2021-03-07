@@ -10,8 +10,10 @@ namespace DAL.Models
 	{
 		public Place()
 		{
-			Tags = new HashSet<Tag>();
+			PlaceTags = new HashSet<PlaceTag>();
 			Comments = new HashSet<Comment>();
+			UserVisits = new HashSet<UserVisit>();
+			UserFavourites = new HashSet<UserFavourite>();
 		}
 
 		[Key, Column("place_id")]
@@ -42,10 +44,10 @@ namespace DAL.Models
 		public virtual Owner Owner { get; set; }
 		[ForeignKey("TypeId")]
 		public virtual PlaceType Type { get; set; }
-		public virtual ICollection<Tag> Tags { get; set; }
+		public virtual ICollection<PlaceTag> PlaceTags { get; set; }
 		public virtual ICollection<Comment> Comments { get; set; }
-		public virtual ICollection<User> UsersHavingVisited { get; set; }
-		public virtual ICollection<User> UsersHavingFavoured { get; set; }
+		public virtual ICollection<UserVisit> UserVisits { get; set; }
+		public virtual ICollection<UserFavourite> UserFavourites { get; set; }
 	}
 
 	public class PlaceValidator : AbstractValidator<Place>

@@ -128,53 +128,28 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "favourite_places",
+                name: "place_tag",
                 schema: "trip_advisor",
                 columns: table => new
                 {
-                    FavouritePlacesPlaceId = table.Column<int>(type: "int", nullable: false),
-                    UsersHavingFavouredUserId = table.Column<int>(type: "int", nullable: false)
+                    place_tag_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlaceId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_favourite_places", x => new { x.FavouritePlacesPlaceId, x.UsersHavingFavouredUserId });
+                    table.PrimaryKey("PK_place_tag", x => x.place_tag_id);
                     table.ForeignKey(
-                        name: "FK_favourite_places_place_FavouritePlacesPlaceId",
-                        column: x => x.FavouritePlacesPlaceId,
+                        name: "FK_place_tag_place",
+                        column: x => x.PlaceId,
                         principalSchema: "trip_advisor",
                         principalTable: "place",
                         principalColumn: "place_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_favourite_places_user_UsersHavingFavouredUserId",
-                        column: x => x.UsersHavingFavouredUserId,
-                        principalSchema: "trip_advisor",
-                        principalTable: "user",
-                        principalColumn: "user_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "places_tags",
-                schema: "trip_advisor",
-                columns: table => new
-                {
-                    PlacesPlaceId = table.Column<int>(type: "int", nullable: false),
-                    TagsTagId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_places_tags", x => new { x.PlacesPlaceId, x.TagsTagId });
-                    table.ForeignKey(
-                        name: "FK_places_tags_place_PlacesPlaceId",
-                        column: x => x.PlacesPlaceId,
-                        principalSchema: "trip_advisor",
-                        principalTable: "place",
-                        principalColumn: "place_id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_places_tags_tag_TagsTagId",
-                        column: x => x.TagsTagId,
+                        name: "FK_place_tag_tag",
+                        column: x => x.TagId,
                         principalSchema: "trip_advisor",
                         principalTable: "tag",
                         principalColumn: "tag_id",
@@ -182,26 +157,57 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "visited_places",
+                name: "user_favourite",
                 schema: "trip_advisor",
                 columns: table => new
                 {
-                    UsersHavingVisitedUserId = table.Column<int>(type: "int", nullable: false),
-                    VisitedPlacesPlaceId = table.Column<int>(type: "int", nullable: false)
+                    user_favourite_id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    PlaceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_visited_places", x => new { x.UsersHavingVisitedUserId, x.VisitedPlacesPlaceId });
+                    table.PrimaryKey("PK_user_favourite", x => x.user_favourite_id);
                     table.ForeignKey(
-                        name: "FK_visited_places_place_VisitedPlacesPlaceId",
-                        column: x => x.VisitedPlacesPlaceId,
+                        name: "FK_user_favourite_place",
+                        column: x => x.PlaceId,
                         principalSchema: "trip_advisor",
                         principalTable: "place",
                         principalColumn: "place_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_visited_places_user_UsersHavingVisitedUserId",
-                        column: x => x.UsersHavingVisitedUserId,
+                        name: "FK_user_favourite_user",
+                        column: x => x.UserId,
+                        principalSchema: "trip_advisor",
+                        principalTable: "user",
+                        principalColumn: "user_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "user_visit",
+                schema: "trip_advisor",
+                columns: table => new
+                {
+                    user_visit__id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    PlaceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_user_visit", x => x.user_visit__id);
+                    table.ForeignKey(
+                        name: "FK_user_visit_place",
+                        column: x => x.PlaceId,
+                        principalSchema: "trip_advisor",
+                        principalTable: "place",
+                        principalColumn: "place_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_user_visit_user",
+                        column: x => x.UserId,
                         principalSchema: "trip_advisor",
                         principalTable: "user",
                         principalColumn: "user_id",
@@ -221,12 +227,6 @@ namespace DAL.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_favourite_places_UsersHavingFavouredUserId",
-                schema: "trip_advisor",
-                table: "favourite_places",
-                column: "UsersHavingFavouredUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_place_OwnerId",
                 schema: "trip_advisor",
                 table: "place",
@@ -239,16 +239,40 @@ namespace DAL.Migrations
                 column: "TypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_places_tags_TagsTagId",
+                name: "IX_place_tag_PlaceId",
                 schema: "trip_advisor",
-                table: "places_tags",
-                column: "TagsTagId");
+                table: "place_tag",
+                column: "PlaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_visited_places_VisitedPlacesPlaceId",
+                name: "IX_place_tag_TagId",
                 schema: "trip_advisor",
-                table: "visited_places",
-                column: "VisitedPlacesPlaceId");
+                table: "place_tag",
+                column: "TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_favourite_PlaceId",
+                schema: "trip_advisor",
+                table: "user_favourite",
+                column: "PlaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_favourite_UserId",
+                schema: "trip_advisor",
+                table: "user_favourite",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_visit_PlaceId",
+                schema: "trip_advisor",
+                table: "user_visit",
+                column: "PlaceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_user_visit_UserId",
+                schema: "trip_advisor",
+                table: "user_visit",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -258,15 +282,15 @@ namespace DAL.Migrations
                 schema: "trip_advisor");
 
             migrationBuilder.DropTable(
-                name: "favourite_places",
+                name: "place_tag",
                 schema: "trip_advisor");
 
             migrationBuilder.DropTable(
-                name: "places_tags",
+                name: "user_favourite",
                 schema: "trip_advisor");
 
             migrationBuilder.DropTable(
-                name: "visited_places",
+                name: "user_visit",
                 schema: "trip_advisor");
 
             migrationBuilder.DropTable(

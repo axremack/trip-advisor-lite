@@ -10,8 +10,8 @@ namespace DAL.Models
 	{
 		public User()
 		{
-			VisitedPlaces = new HashSet<Place>();
-			FavouritePlaces = new HashSet<Place>();
+			UserVisits = new HashSet<UserVisit>();
+			UserFavourites = new HashSet<UserFavourite>();
 		}
 
 		[Key, Column("user_id")]
@@ -21,8 +21,8 @@ namespace DAL.Models
 		[Column("first_name"), DataType(DataType.Text), StringLength(255), Required]
 		public string FirstName { get; set; }
 
-		public virtual ICollection<Place> VisitedPlaces { get; set; }
-		public virtual ICollection<Place> FavouritePlaces { get; set; }
+		public virtual ICollection<UserVisit> UserVisits { get; set; }
+		public virtual ICollection<UserFavourite> UserFavourites { get; set; }
 	}
 
 	public class UserValidator : AbstractValidator<User>

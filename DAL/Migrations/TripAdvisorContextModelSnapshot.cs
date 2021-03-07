@@ -133,6 +133,29 @@ namespace DAL.Migrations
                     b.ToTable("place", "trip_advisor");
                 });
 
+            modelBuilder.Entity("DAL.Models.PlaceTag", b =>
+                {
+                    b.Property<int>("PlaceTagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("place_tag_id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PlaceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PlaceTagId");
+
+                    b.HasIndex("PlaceId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("place_tag", "trip_advisor");
+                });
+
             modelBuilder.Entity("DAL.Models.PlaceType", b =>
                 {
                     b.Property<int>("PlaceTypeId")
@@ -202,49 +225,50 @@ namespace DAL.Migrations
                     b.HasDiscriminator<string>("user_type").HasValue("user");
                 });
 
-            modelBuilder.Entity("PlaceTag", b =>
+            modelBuilder.Entity("DAL.Models.UserFavourite", b =>
                 {
-                    b.Property<int>("PlacesPlaceId")
+                    b.Property<int>("UserFavouriteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("user_favourite_id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PlaceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TagsTagId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("PlacesPlaceId", "TagsTagId");
+                    b.HasKey("UserFavouriteId");
 
-                    b.HasIndex("TagsTagId");
+                    b.HasIndex("PlaceId");
 
-                    b.ToTable("places_tags");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("user_favourite", "trip_advisor");
                 });
 
-            modelBuilder.Entity("PlaceUser", b =>
+            modelBuilder.Entity("DAL.Models.UserVisit", b =>
                 {
-                    b.Property<int>("FavouritePlacesPlaceId")
+                    b.Property<int>("UserVisitId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("user_visit__id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PlaceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UsersHavingFavouredUserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("FavouritePlacesPlaceId", "UsersHavingFavouredUserId");
+                    b.HasKey("UserVisitId");
 
-                    b.HasIndex("UsersHavingFavouredUserId");
+                    b.HasIndex("PlaceId");
 
-                    b.ToTable("favourite_places");
-                });
+                    b.HasIndex("UserId");
 
-            modelBuilder.Entity("PlaceUser1", b =>
-                {
-                    b.Property<int>("UsersHavingVisitedUserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("VisitedPlacesPlaceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UsersHavingVisitedUserId", "VisitedPlacesPlaceId");
-
-                    b.HasIndex("VisitedPlacesPlaceId");
-
-                    b.ToTable("visited_places");
+                    b.ToTable("user_visit", "trip_advisor");
                 });
 
             modelBuilder.Entity("DAL.Models.Owner", b =>
@@ -304,59 +328,95 @@ namespace DAL.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("PlaceTag", b =>
+            modelBuilder.Entity("DAL.Models.PlaceTag", b =>
                 {
-                    b.HasOne("DAL.Models.Place", null)
-                        .WithMany()
-                        .HasForeignKey("PlacesPlaceId")
+                    b.HasOne("DAL.Models.Place", "Place")
+                        .WithMany("PlaceTags")
+                        .HasForeignKey("PlaceId")
+                        .HasConstraintName("FK_place_tag_place")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsTagId")
+                    b.HasOne("DAL.Models.Tag", "Tag")
+                        .WithMany("PlaceTags")
+                        .HasForeignKey("TagId")
+                        .HasConstraintName("FK_place_tag_tag")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Place");
+
+                    b.Navigation("Tag");
                 });
 
-            modelBuilder.Entity("PlaceUser", b =>
+            modelBuilder.Entity("DAL.Models.UserFavourite", b =>
                 {
-                    b.HasOne("DAL.Models.Place", null)
-                        .WithMany()
-                        .HasForeignKey("FavouritePlacesPlaceId")
+                    b.HasOne("DAL.Models.Place", "Place")
+                        .WithMany("UserFavourites")
+                        .HasForeignKey("PlaceId")
+                        .HasConstraintName("FK_user_favourite_place")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersHavingFavouredUserId")
+                    b.HasOne("DAL.Models.User", "User")
+                        .WithMany("UserFavourites")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK_user_favourite_user")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Place");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PlaceUser1", b =>
+            modelBuilder.Entity("DAL.Models.UserVisit", b =>
                 {
-                    b.HasOne("DAL.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersHavingVisitedUserId")
+                    b.HasOne("DAL.Models.Place", "Place")
+                        .WithMany("UserVisits")
+                        .HasForeignKey("PlaceId")
+                        .HasConstraintName("FK_user_visit_place")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DAL.Models.Place", null)
-                        .WithMany()
-                        .HasForeignKey("VisitedPlacesPlaceId")
+                    b.HasOne("DAL.Models.User", "User")
+                        .WithMany("UserVisits")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK_user_visit_user")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Place");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DAL.Models.Place", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("PlaceTags");
+
+                    b.Navigation("UserFavourites");
+
+                    b.Navigation("UserVisits");
                 });
 
             modelBuilder.Entity("DAL.Models.PlaceType", b =>
                 {
                     b.Navigation("Places");
+                });
+
+            modelBuilder.Entity("DAL.Models.Tag", b =>
+                {
+                    b.Navigation("PlaceTags");
+                });
+
+            modelBuilder.Entity("DAL.Models.User", b =>
+                {
+                    b.Navigation("UserFavourites");
+
+                    b.Navigation("UserVisits");
                 });
 
             modelBuilder.Entity("DAL.Models.Owner", b =>

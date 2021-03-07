@@ -43,13 +43,13 @@ export class PlaceCardDetailed extends Component {
 
 	async populateTagsList() {
 		if (this.props.id) {
-			const res = await fetch('/places/tags/' + this.props.id, {
+			const res = await fetch('/places/' + this.props.id + '/tags', {
 				method: 'GET',
 				headers: { 'Content-type': 'application/json' }
 			});
 
 			if (res.ok) {
-				res.json().then(data => this.setState({ Tags: data }));
+				res.json().then(data => { this.setState({ Tags: data }); console.log(data); });
 			} else {
 				this.setState({ Tags: null });
 			}
@@ -70,7 +70,7 @@ export class PlaceCardDetailed extends Component {
 			return (
 				<section>
 					{ this.state.Tags.map(tag => {
-						return tag.Type + ", ";
+						return (<div style={{ backgroundColor: 'lightgray', margin: '2px', borderRadius: '2px' }}>{tag.type}</div>);
 					})
 					}
 				</section>
@@ -105,7 +105,7 @@ export class PlaceCardDetailed extends Component {
 					<Col className="h3 p-0 font-weight-bold">{this.props.title}</Col>
 				</Row>
 				<Row>
-					<Col className="h3 p-0">{this.props.city}</Col>
+					<Col className="h5 p-0">{this.props.street}<br/>{this.props.city + ', ' + this.props.state}</Col>
 				</Row>
 				<Row>
 					<Col className="h5 px-0 pb-3">{numberComments}</Col>
@@ -114,7 +114,7 @@ export class PlaceCardDetailed extends Component {
 					<img width="100%" src="/img_bidon.jpg" alt="A beautiful place" />
 				</Row>
 				<Row className="pb-3">
-					<Col className="h5 px-0 pb-3">{this.renderTagsList()}</Col>
+					<Col className="h6 px-0 pb-3">{this.renderTagsList()}</Col>
 				</Row>
 				<Row>
 					<Button tag={Link} to={"/place/" + this.props.id + "/addcomment"} color="success">Ajouter un avis</Button>

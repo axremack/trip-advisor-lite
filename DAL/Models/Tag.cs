@@ -10,7 +10,7 @@ namespace DAL.Models
 	{
 		public Tag()
 		{
-			Places = new HashSet<Place>();
+			PlaceTags = new HashSet<PlaceTag>();
 		}
 
 		[Key, Column("tag_id")]
@@ -18,7 +18,7 @@ namespace DAL.Models
 		[Column("type"), DataType(DataType.Text), StringLength(255), Required]
 		public string Type { get; set; }
 
-		public virtual ICollection<Place> Places { get; set; }
+		public virtual ICollection<PlaceTag> PlaceTags { get; set; }
 	}
 
 	public class TagValidator : AbstractValidator<Tag>
