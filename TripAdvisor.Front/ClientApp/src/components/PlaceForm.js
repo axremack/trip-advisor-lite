@@ -36,7 +36,8 @@ export class PlaceForm extends Component {
 				City: document.getElementById("CityInput").value,
 				ZipCode: document.getElementById("ZipCodeInput").value,
 				State: document.getElementById("StateInput").value,
-				Price: document.getElementById("PriceInput").value
+				Price: document.getElementById("PriceInput").value,
+				Tag: document.getElementById("TagInput").value
 			});
 			
 			const res = await fetch('places', {
@@ -74,14 +75,14 @@ export class PlaceForm extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="number" name="BedRoomCount" id="BedRoomCountInput" placeholder="Nombre de chambres" required maxLength="2000" />
-						<FormFeedback invalid="true">Entrez le nombre de chambres (max. 2000 caractères)</FormFeedback>
+						<Input type="number" name="BedRoomCount" id="BedRoomCountInput" placeholder="Nombre de chambres" min={0} max={10000} required />
+						<FormFeedback invalid="true">Entrez le nombre de chambres (maximum 10 000)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="number" name="BathRoomCount" id="BathRoomCountInput" placeholder="Nombre de salles de bains" required maxLength="2000" />
-						<FormFeedback invalid="true">Entrez le nombre de salles de bain (max. 2000 caractères)</FormFeedback>
+						<Input type="number" name="BathRoomCount" id="BathRoomCountInput" placeholder="Nombre de salles de bains" min={0} max={10} required />
+						<FormFeedback invalid="true">Entrez le nombre de salles de bain (maximum 10)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
@@ -98,8 +99,8 @@ export class PlaceForm extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="text" name="zipcode" id="ZipCodeInput" placeholder="ZipCode" required maxLength="255" />
-						<FormFeedback invalid="true">Entrez un zip (max. 255 caractères)</FormFeedback>
+						<Input type="number" name="zipcode" id="ZipCodeInput" placeholder="Code Postal" required />
+						<FormFeedback invalid="true">Entrez un code postal</FormFeedback>
 					</FormGroup>
 				</Col>
 				<Col md={6}>
@@ -110,8 +111,14 @@ export class PlaceForm extends Component {
 				</Col>
 				<Col md={6}>
 					<FormGroup>
-						<Input type="number" name="price" id="PriceInput" placeholder="Prix" required maxLength="255" />
-						<FormFeedback invalid="true">Entrez un prix (max. 255 caractères)</FormFeedback>
+						<Input type="number" name="price" id="PriceInput" placeholder="Prix" required/>
+						<FormFeedback invalid="true">Entrez un prix</FormFeedback>
+					</FormGroup>
+				</Col>
+				<Col md={6}>
+					<FormGroup>
+						<Input type="text" name="tag" id="TagInput" placeholder="Tag" required maxLength="255" />
+						<FormFeedback invalid="true">Entrez un tag (max. 255 caractères)</FormFeedback>
 					</FormGroup>
 				</Col>
 				<div>
