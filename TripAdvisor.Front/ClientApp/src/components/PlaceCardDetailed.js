@@ -14,12 +14,14 @@ export class PlaceCardDetailed extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			Comments: []
+			Comments: [],
+			Tags: []
 		};
 	}
 
 	componentDidMount() {
 		this.populateCommentsList();
+		this.populateTagsList();
 	}
 
 	async populateCommentsList() {
@@ -39,12 +41,45 @@ export class PlaceCardDetailed extends Component {
 		}
 	}
 
+	async populateTagsList() {
+		if (this.props.id) {
+			const res = await fetch('/places/tags/' + this.props.id, {
+				method: 'GET',
+				headers: { 'Content-type': 'application/json' }
+			});
+
+			if (res.ok) {
+				res.json().then(data => this.setState({ Tags: data }));
+			} else {
+				this.setState({ Tags: null });
+			}
+		} else {
+			this.setState({ Tags: null });
+		}
+	}
+
 	AvgRank(comments) {
 		let total = comments.length;
 		let avg = 0;
 		comments.map(comment => avg += comment.rank);
 		return avg / total;
-    }
+	}
+
+	renderTagsList = () => {
+		if ((this.state.Tags !== null) && (this.state.Tags.length !== 0)) {
+			return (
+				<section>
+					{ this.state.Tags.map(tag => {
+						return tag.Type + ", ";
+					})
+					}
+				</section>
+			);
+		}
+		else {
+			return (<p>Pas de tags</p>);
+		}
+	}
 
 	render() {
 		let numberComments = null;
@@ -77,6 +112,9 @@ export class PlaceCardDetailed extends Component {
 				</Row>
 				<Row className="pb-3">
 					<img width="100%" src="/img_bidon.jpg" alt="A beautiful place" />
+				</Row>
+				<Row className="pb-3">
+					<Col className="h5 px-0 pb-3">{this.renderTagsList()}</Col>
 				</Row>
 				<Row>
 					<Button tag={Link} to={"/place/" + this.props.id + "/addcomment"} color="success">Ajouter un avis</Button>
