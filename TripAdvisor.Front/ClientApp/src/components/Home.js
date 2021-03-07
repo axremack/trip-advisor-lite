@@ -29,6 +29,7 @@ export class Home extends Component {
 
     componentDidMount() {
         this.populatePlacesList();
+        this.populatePopularPlacesList();
     }
 
     static renderPlacesList(places) {
@@ -39,7 +40,7 @@ export class Home extends Component {
                 }));
         }
         else {
-            return (<div className='jumbotron '>Aucun lieu pour le moment</div>);
+            return (<div className='jumbotron '><h3>Aucun lieu pour le moment</h3></div>);
         }
     }
 
@@ -67,13 +68,11 @@ export class Home extends Component {
         } else {
             this.setState({ PopularPlaces: null });
         }
-        console.log(this.state.PopularPlaces);
     }
 
     render() {
         const isLoggedIn = this.state.token;
         let contenu = null;
-        console.log(this.state.PopularPlaces);
 
         if (isLoggedIn) {
             contenu = <Container>
