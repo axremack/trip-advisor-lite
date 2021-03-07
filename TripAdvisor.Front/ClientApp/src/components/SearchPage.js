@@ -70,7 +70,7 @@ export class SearchPage extends Component {
         return (
             <div>
                 <section>
-                    <h1>R�sultats de la recherche</h1>
+                    <h1>Résultats de la recherche</h1>
                     {SearchPage.renderPlacesList(this.state.Places)}
                 </section>
             </div>
