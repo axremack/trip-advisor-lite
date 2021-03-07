@@ -67,6 +67,7 @@ export class Home extends Component {
         } else {
             this.setState({ PopularPlaces: null });
         }
+        console.log(this.state.PopularPlaces);
     }
 
     render() {

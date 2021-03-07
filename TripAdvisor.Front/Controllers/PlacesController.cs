@@ -48,38 +48,48 @@ namespace TripAdvisor.Controllers
             if (items == null || !items.Any())
             {
                 return NotFound("Item not Found");
-            } else
+            }
+            else
             {
-                var avgOfAvg = 0;
-                var total = 0;
-                var listAvg = new List<int>();
-                var listToRemove = new List<int>();
+                double avgOfAvg = 0;
+                int total = 0;
+                var listAvg = new List<double>();
 
                 foreach (var place in items)
                 {
-                    var avg = 0;
-                    foreach (var comment in place.Comments)
+                    double avg = 0;
+
+                    if(place.Comments.Count != 0)
                     {
-                        avg += comment.Rank;
+                        foreach (var comment in place.Comments)
+                        {
+                            avg += comment.Rank;
+                        }
+                    
+                        avg = (double)avg / (double)place.Comments.Count;
+                        total++;
+                        avgOfAvg += avg;
                     }
 
-                    if(place.Comments.Count != 0) { avg /= place.Comments.Count; }
-                    list.Add(avg);
-                    total++;
-                    if (avg != 0) { avgOfAvg += avg; }
+                    listAvg.Add(avg);
                 }
 
-                if (total != 0) { avgOfAvg /= items.Count; }
-
-                for(int i = 0; i < items.Count; i++)
+                if (total != 0)
                 {
-                    if (list[i] < avgOfAvg)
+                    var listPlaces = new List<Place>();
+                    
+                    avgOfAvg = (double)avgOfAvg / (double)total;
+
+                    for (int i = 0; i < listAvg.Count; i++)
                     {
-                        listToRemove.Add(items[i].PlaceId);
+                        if (listAvg[i] != 0 && listAvg[i] >= avgOfAvg)
+                        {
+                            listPlaces.Add(items[i]);
+                        }
                     }
+
+                    items = listPlaces;
                 }
-                
-                items = await items.Where(place => listToRemove.All(id => id != place.PlaceId)).ToListAsync();
             }
 
             return items;
