@@ -59,7 +59,7 @@ export class NavMenu extends Component {
 					</DropdownToggle>
 					<DropdownMenu right>
 						<DropdownItem>
-							<NavLink tag={Link} className="text-dark" to={"/user/" + this.state.token}>Profil</NavLink>
+							<NavLink tag={Link} className="text-dark p-0" to={"/user/" + this.state.token}>Profil</NavLink>
 						</DropdownItem>
 						<DropdownItem onClick={() => {
 							localStorage.clear();
