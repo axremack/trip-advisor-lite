@@ -51,9 +51,8 @@ namespace TripAdvisor.Controllers
             }
             else
             {
-                double avgOfAvg = 0;
-                int total = 0;
-                var listAvg = new List<double>();
+                var total = 0;
+                var listPlaces = new List<Place>();
 
                 foreach (var place in items)
                 {
@@ -69,29 +68,16 @@ namespace TripAdvisor.Controllers
                     
                         avg = (double)avg / (double)lstComments.Count;
                         total++;
-                        avgOfAvg += avg;
                     }
-
-                    listAvg.Add(avg);
-                }
-
-                if (total != 0)
-                {
-                    var listPlaces = new List<Place>();
                     
-                    avgOfAvg = (double)avgOfAvg / (double)total;
-
-                    for (int i = 0; i < listAvg.Count; i++)
+                    if (avg != 0 && avg >= 3)
                     {
-                        if (listAvg[i] != 0 && listAvg[i] >= avgOfAvg)
-                        {
-                            items[i].Comments = null;
-                            listPlaces.Add(items[i]);
-                        }
+                        place.Comments = null;
+                        listPlaces.Add(place);
                     }
-
-                    items = listPlaces;
                 }
+
+                if (total != 0) { items = listPlaces; }
             }
 
             return items;
