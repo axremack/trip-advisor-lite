@@ -21,10 +21,10 @@ export class PlaceForm extends Component {
 		this.state = {
 			doRedirect: false,
 			tags: [
-				{ id: 1, name: "Apples" },
-				{ id: 2, name: "Pears" }
 			],
 			suggestions: [
+				{ id: 1, name: "Apples" },
+				{ id: 2, name: "Pears" },
 				{ id: 3, name: "Bananas" },
 				{ id: 4, name: "Mangos" },
 				{ id: 5, name: "Lemons" },
@@ -133,14 +133,17 @@ export class PlaceForm extends Component {
 				</FormGroup>
 				<FormGroup>
 					<Label for="TagInput">Tags</Label>
-					<Input type="text" name="tag" id="TagInput" maxLength="255" />
+					<ReactTags
+						id="TagInput"
+						ref={this.reactTags}
+						tags={this.state.tags}
+						suggestions={this.state.suggestions}
+						placeholderText="Ajouter un tag"
+						removeButtonText="Cliquer pour enlever ce tag"
+						noSuggestionsText="Aucune suggestion"
+						onDelete={this.onDelete.bind(this)}
+						onAddition={this.onAddition.bind(this)} />
 				</FormGroup>
-				<ReactTags
-					ref={this.reactTags}
-					tags={this.state.tags}
-					suggestions={this.state.suggestions}
-					onDelete={this.onDelete.bind(this)}
-					onAddition={this.onAddition.bind(this)} />
 				<div>
 					<Button color="success">Valider</Button>{' '}
 				</div>
