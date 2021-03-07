@@ -21,18 +21,7 @@ export class PlaceForm extends Component {
 		this.state = {
 			doRedirect: false,
 			tags: [],
-			suggestions: [
-				{ id: 1, name: "Familial" },
-				{ id: 2, name: "Couple" },
-				{ id: 3, name: "Mer" },
-				{ id: 4, name: "Montagne" },
-				{ id: 5, name: "Tourisme" },
-				{ id: 6, name: "Romantique" },
-				{ id: 7, name: "Ski" },
-				{ id: 8, name: "Nature" },
-				{ id: 9, name: "Sport" },
-				{ id: 10, name: "Repos" }	
-			]
+			suggestions: []
 		};
 
 		this.reactTags = React.createRef();
@@ -45,7 +34,9 @@ export class PlaceForm extends Component {
 		});
 
 		if (res.ok) {
-			res.json().then(data => this.setState({ tags: data }));
+			res.json().then(data => {
+				this.setState({ suggestions: data.map(d => { return { id: d.tagId, name: d.type } }) });
+			});
 		} else {
 			this.setState({ tags: null });
 		}
@@ -105,7 +96,7 @@ export class PlaceForm extends Component {
 		}
 
 		return (
-			<Form id="valid" noValidate onSubmit={this.onSubmit}>
+			<Form id="valid" noValidate onSubmit={this.onSubmit} style={{ marginBottom: '2em' }}>
 				<FormGroup>
 					<Label for="TitleInput">Nom du lieu</Label>
 					<Input type="text" name="title" id="TitleInput" required maxLength="255"/>
@@ -158,11 +149,11 @@ export class PlaceForm extends Component {
 						ref={this.reactTags}
 						tags={this.state.tags}
 						suggestions={this.state.suggestions}
-						placeholderText="Ajouter un tag"
+						placeholderText=""
 						removeButtonText="Cliquer pour enlever ce tag"
 						noSuggestionsText="Aucune suggestion"
 						onDelete={this.onDelete.bind(this)}
-						onAddition={this.onAddition.bind(this)} />
+						onAddition={this.onAddition.bind(this)}/>
 				</FormGroup>
 				<div>
 					<Button color="success">Valider</Button>{' '}
