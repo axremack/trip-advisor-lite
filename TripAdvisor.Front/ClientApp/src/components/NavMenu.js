@@ -94,11 +94,8 @@ export class NavMenu extends Component {
 						<NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
 						<Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
 							<SearchBar />
-							<div className="navbar-nav flex-grow">
+							<div className="navbar-nav flex-grow mr-5">
 								{button}
-								<NavItem>
-									<NavLink tag={Link} className="text-dark pl-5" to="/">Ecrire un avis</NavLink>
-								</NavItem>
 							</div>
 						</Collapse>
 					</Container>
