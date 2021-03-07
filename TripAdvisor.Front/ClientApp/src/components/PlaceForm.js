@@ -8,6 +8,9 @@ import {
 	FormFeedback
 } from 'reactstrap';
 import { Redirect } from 'react-router';
+import ReactTags from 'react-tag-autocomplete';
+
+import '../custom.css';
 
 export class PlaceForm extends Component {
 	static displayName = PlaceForm.name;
@@ -16,8 +19,20 @@ export class PlaceForm extends Component {
 		super(props);
 
 		this.state = {
-			doRedirect: false
+			doRedirect: false,
+			tags: [
+				{ id: 1, name: "Apples" },
+				{ id: 2, name: "Pears" }
+			],
+			suggestions: [
+				{ id: 3, name: "Bananas" },
+				{ id: 4, name: "Mangos" },
+				{ id: 5, name: "Lemons" },
+				{ id: 6, name: "Apricots" }
+			]
 		};
+
+		this.reactTags = React.createRef();
 	}
 
 	onSubmit = async (event) => {
@@ -53,6 +68,16 @@ export class PlaceForm extends Component {
 		form.classList.add('was-validated');
 	}
 
+	onDelete(i) {
+		const tags = this.state.tags.slice(0)
+		tags.splice(i, 1)
+		this.setState({ tags })
+	}
+
+	onAddition(tag) {
+		const tags = [].concat(this.state.tags, tag)
+		this.setState({ tags })
+	}
 
 	render() {
 		if (this.state.doRedirect) {
@@ -111,6 +136,12 @@ export class PlaceForm extends Component {
 					<Input type="text" name="tag" id="TagInput" required maxLength="255" />
 					<FormFeedback invalid="true">Entrez un tag (max. 255 caractères)</FormFeedback>
 				</FormGroup>
+				<ReactTags
+					ref={this.reactTags}
+					tags={this.state.tags}
+					suggestions={this.state.suggestions}
+					onDelete={this.onDelete.bind(this)}
+					onAddition={this.onAddition.bind(this)} />
 				<div>
 					<Button color="success">Valider</Button>{' '}
 				</div>
