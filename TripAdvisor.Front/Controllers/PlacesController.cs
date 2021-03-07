@@ -59,14 +59,15 @@ namespace TripAdvisor.Controllers
                 {
                     double avg = 0;
 
-                    if(place.Comments.Count != 0)
+                    var lstComments = await _context.Comments.Where(c => c.PlaceId == place.PlaceId).ToListAsync();
+                    if(lstComments.Any())
                     {
-                        foreach (var comment in place.Comments)
+                        foreach (var comment in lstComments)
                         {
                             avg += comment.Rank;
                         }
                     
-                        avg = (double)avg / (double)place.Comments.Count;
+                        avg = (double)avg / (double)lstComments.Count;
                         total++;
                         avgOfAvg += avg;
                     }
@@ -84,6 +85,7 @@ namespace TripAdvisor.Controllers
                     {
                         if (listAvg[i] != 0 && listAvg[i] >= avgOfAvg)
                         {
+                            items[i].Comments = null;
                             listPlaces.Add(items[i]);
                         }
                     }
