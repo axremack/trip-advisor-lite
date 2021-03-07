@@ -21,6 +21,7 @@ export class PlaceCardDetailed extends Component {
 
 	componentDidMount() {
 		this.populateCommentsList();
+		this.populateTagsList();
 	}
 
 	async populateCommentsList() {
