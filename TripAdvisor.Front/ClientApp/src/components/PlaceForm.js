@@ -20,19 +20,39 @@ export class PlaceForm extends Component {
 
 		this.state = {
 			doRedirect: false,
-			tags: [
-				{ id: 1, name: "Apples" },
-				{ id: 2, name: "Pears" }
-			],
+			tags: [],
 			suggestions: [
-				{ id: 3, name: "Bananas" },
-				{ id: 4, name: "Mangos" },
-				{ id: 5, name: "Lemons" },
-				{ id: 6, name: "Apricots" }
+				{ id: 1, name: "Familial" },
+				{ id: 2, name: "Couple" },
+				{ id: 3, name: "Mer" },
+				{ id: 4, name: "Montagne" },
+				{ id: 5, name: "Tourisme" },
+				{ id: 6, name: "Romantique" },
+				{ id: 7, name: "Ski" },
+				{ id: 8, name: "Nature" },
+				{ id: 9, name: "Sport" },
+				{ id: 10, name: "Repos" }	
 			]
 		};
 
 		this.reactTags = React.createRef();
+	}
+
+	async TagsList() {
+		const res = await fetch('tags', {
+			method: 'GET',
+			headers: { 'Content-type': 'application/json' }
+		});
+
+		if (res.ok) {
+			res.json().then(data => this.setState({ tags: data }));
+		} else {
+			this.setState({ tags: null });
+		}
+	}
+
+	componentDidMount() {
+		this.TagsList();
 	}
 
 	onSubmit = async (event) => {
