@@ -68,16 +68,16 @@ export class PlaceCardDetailed extends Component {
 	renderTagsList = () => {
 		if ((this.state.Tags !== null) && (this.state.Tags.length !== 0)) {
 			return (
-				<section>
+				<Row className="pb-5">
 					{ this.state.Tags.map(tag => {
-						return (<div style={{ backgroundColor: 'lightgray', margin: '2px', borderRadius: '2px' }}>{tag.type}</div>);
+						return (<Col className="m-1 bg-color rounded mb-0 text-center" md="3" style={{ backgroundColor: 'lightgrey' }}>{tag.type}</Col>);
 					})
 					}
-				</section>
+				</Row>
 			);
 		}
 		else {
-			return (<p>Pas de tags</p>);
+			return (<Row className="pb-5">Pas de tags</Row>);
 		}
 	}
 
@@ -113,9 +113,7 @@ export class PlaceCardDetailed extends Component {
 				<Row className="pb-3">
 					<img width="100%" src="/img_bidon.jpg" alt="A beautiful place" />
 				</Row>
-				<Row className="pb-3">
-					<Col className="h6 px-0 pb-3">{this.renderTagsList()}</Col>
-				</Row>
+				{this.renderTagsList()}
 				<Row>
 					<Button tag={Link} to={"/place/" + this.props.id + "/addcomment"} color="success">Ajouter un avis</Button>
 				</Row>
