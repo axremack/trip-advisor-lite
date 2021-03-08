@@ -1,5 +1,10 @@
 ﻿import React, { Component } from 'react';
 import { PlaceCard } from './PlaceCard';
+import {
+    Container,
+    Row,
+    Col
+} from 'reactstrap';
 
 export class SearchPage extends Component {
     static displayName = SearchPage.name;
@@ -19,17 +24,17 @@ export class SearchPage extends Component {
     static renderPlacesList(places) {
         if ((places !== null) && (places.length !== 0)) {
             return (
-                 <div className="placeList">
+                 <Row className="placeList">
                     {
                         places.map(place => {
                             return <PlaceCard key={place.placeId} id={place.placeId} title={place.title} city={place.city} />;
                         })
                     }
-                </div>
+                </Row>
             );
         }
         else {
-            return (<div className='jumbotron '><h1 className="display-4">Aucun lieu ne correspond à votre recherche</h1></div>);
+            return (<div className='jumbotron '><h2 className="display-4">Aucun lieu ne correspond à votre recherche</h2></div>);
         }
     }
 
@@ -68,12 +73,12 @@ export class SearchPage extends Component {
 
     render() {
         return (
-            <div>
-                <section>
-                    <h1>Résultats de la recherche</h1>
-                    {SearchPage.renderPlacesList(this.state.Places)}
-                </section>
-            </div>
+            <Container className="mb-5 px-5">
+                <Row className="mb-3">
+                    <h2>Résultats de la recherche</h2>
+                </Row>
+                {SearchPage.renderPlacesList(this.state.Places)}
+            </Container>
         );
   }
 }

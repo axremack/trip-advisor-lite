@@ -78,7 +78,7 @@ export class Home extends Component {
             contenu = <Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
-                                <h1>Destinations populaires</h1>
+                                <h2>Destinations populaires</h2>
                             </Row>
                             <Row>
                                 {Home.renderPlacesList(this.state.PopularPlaces)}
@@ -86,7 +86,7 @@ export class Home extends Component {
                         </Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
-                                <h1>Suggestions</h1>
+                                <h2>Suggestions</h2>
                             </Row>
                             <Row>
                                 {Home.renderPlacesList(this.state.Places)}
@@ -94,7 +94,7 @@ export class Home extends Component {
                         </Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
-                                <h1>Vos lieux</h1>
+                                <h2>Vos lieux</h2>
                             </Row>
                             <Row>
                                 {Home.renderPlacesList(this.state.Places.filter(place => (place.ownerId !== null) && (place.ownerId === this.state.token)))}
@@ -104,7 +104,7 @@ export class Home extends Component {
         } else {
             contenu = <Container className="mb-5">
                             <Row className="mb-3">
-                                <h1>Destinations populaires</h1>
+                                <h2>Destinations populaires</h2>
                             </Row>
                             <Row>
                                 {Home.renderPlacesList(this.state.PopularPlaces)}

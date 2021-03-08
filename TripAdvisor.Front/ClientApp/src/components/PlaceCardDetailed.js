@@ -70,7 +70,7 @@ export class PlaceCardDetailed extends Component {
 			return (
 				<Row className="pb-5">
 					{ this.state.Tags.map(tag => {
-						return (<Col className="m-1 bg-color rounded mb-0 text-center" md="3" style={{ backgroundColor: 'lightgrey' }}>{tag.type}</Col>);
+						return (<Col className="m-1 bg-color rounded mb-0 text-center" style={{ backgroundColor: 'lightgrey' }}>{tag.type}</Col>);
 					})
 					}
 				</Row>
@@ -89,8 +89,7 @@ export class PlaceCardDetailed extends Component {
 			numberComments =
 				<div>
 					Note moyenne ({this.state.Comments.length} avis)<br />
-					{avg}/5
-					<div className="stars-outer">
+					<div className="stars-outer m-0">
 						&#x02606;&#x02606;&#x02606;&#x02606;&#x02606;
 						<div className="stars-inner" style={{ width: avg / 5 * 100 + '%'}}>
 							&#x02605;&#x02605;&#x02605;&#x02605;&#x02605;

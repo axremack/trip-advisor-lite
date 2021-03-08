@@ -41,8 +41,8 @@ export class PlaceCommentCard extends Component {
 					<Col className="h4 text-right">{this.state.User.surName}</Col>
 				</Row>
 				<Row className="pb-1">
-					<Col className="h5">{this.props.rank}/5 
-						<div className="stars-outer">
+					<Col className="h5">
+						<div className="stars-outer m-0">
 							&#x02606;&#x02606;&#x02606;&#x02606;&#x02606;
 							<div className="stars-inner" style={{ width: this.props.rank / 5 * 100 + '%'}}>
 								&#x02605;&#x02605;&#x02605;&#x02605;&#x02605;

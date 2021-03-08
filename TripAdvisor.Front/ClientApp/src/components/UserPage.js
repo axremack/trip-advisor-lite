@@ -84,7 +84,7 @@ export class UserPage extends Component {
             );
         }
         else {
-            return (<h1 style={{ color: '#FF0000' }}>Pas de commentaires</h1>);
+            return (<div className='jumbotron '><h2 className="display-4">Aucun avis posté</h2></div>);
         }
     }
 
