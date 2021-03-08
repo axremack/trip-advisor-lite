@@ -59,7 +59,6 @@ namespace TripAdvisor.Controllers
             return tabT;
         }
 
-
         // GET /places/popular
         [HttpGet("popular")]
         public async Task<ActionResult<IEnumerable<Place>>> GetPopular()
@@ -98,6 +97,74 @@ namespace TripAdvisor.Controllers
                 }
 
                 if (total != 0) { items = listPlaces; }
+            }
+
+            return items;
+        }
+
+        // GET /places/suggestions/5
+        [HttpGet("suggestions/{id}")]
+        public async Task<ActionResult<IEnumerable<Place>>> GetSuggestions(int id)
+        {
+            var items = await _context.Places.ToListAsync();
+            if (items == null || !items.Any())
+            {
+                return NotFound("Item not Found");
+            }
+            else
+            {
+                var lstComments = await _context.Comments.Where(c => c.UserId == id).ToListAsync();
+                var lstTags = new List<Tag>();
+                var listPlaces = new List<Place>();
+
+                foreach (var comment in lstComments)
+                {
+                    var lstPlaces = await _context.Places.Where(p => p.PlaceId == comment.PlaceId).ToListAsync();
+
+                    foreach (var place in lstPlaces)
+                    {
+                        var tabTags = await _context.PlaceTags.Where(p => p.PlaceId == id).Select(p => p.Tag).ToListAsync();
+                        lstTags = lstTags.Union(tabTags).ToList();
+                    }
+                }
+
+                foreach (var place in items)
+                {
+                    var tabTags = await _context.PlaceTags.Where(p => p.PlaceId == id).Select(p => p.Tag).ToListAsync();
+
+                    if (lstTags.Intersect(tabTags).Any())
+                    {
+                        listPlaces.Add(place);
+                    }
+                }
+
+                if (listPlaces.Any()) { items = listPlaces; }
+            }
+
+            return items;
+        }
+
+        // GET /places/visited/5
+        [HttpGet("visited/{id}")]
+        public async Task<ActionResult<IEnumerable<Place>>> GetVisited(int id)
+        {
+            var items = await _context.Places.ToListAsync();
+            if (items == null || !items.Any())
+            {
+                return NotFound("Item not Found");
+            }
+            else
+            {
+                var listPlaces = new List<Place>();
+                var lstVisited = await _context.UserVisits.Where(v => v.UserId == id).ToListAsync();
+
+                foreach (var visited in lstVisited)
+                {
+                    var lstPlaces = await _context.Places.Where(p => p.PlaceId == visited.PlaceId).ToListAsync();
+                    listPlaces = listPlaces.Union(lstPlaces).ToList();
+                }
+
+                items = listPlaces;
             }
 
             return items;

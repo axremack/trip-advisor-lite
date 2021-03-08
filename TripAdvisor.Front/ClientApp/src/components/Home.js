@@ -11,8 +11,9 @@ export class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Places: [],
             PopularPlaces: [],
+            SuggestedPlaces: [],
+            VisitedPlaces: [],
             token: props.userId
         }
     }
@@ -28,7 +29,6 @@ export class Home extends Component {
     }
 
     componentDidMount() {
-        this.populatePlacesList();
         this.populatePopularPlacesList();
     }
 
@@ -41,19 +41,6 @@ export class Home extends Component {
         }
         else {
             return (<div className='jumbotron '><h3>Aucun lieu pour le moment</h3></div>);
-        }
-    }
-
-    async populatePlacesList() {
-        const res = await fetch('places', {
-            method: 'GET',
-            headers: { 'Content-type': 'application/json' }
-        });
-
-        if (res.ok) {
-            res.json().then(data => this.setState({ Places: data }));
-        } else {
-            this.setState({ Places: null });
         }
     }
 
@@ -70,11 +57,39 @@ export class Home extends Component {
         }
     }
 
+    async populateSuggestedPlacesList() {
+        const res = await fetch('places/suggestions/' + this.state.token, {
+            method: 'GET',
+            headers: { 'Content-type': 'application/json' }
+        });
+
+        if (res.ok) {
+            res.json().then(data => this.setState({ SuggestedPlaces: data }));
+        } else {
+            this.setState({ SuggestedPlaces: null });
+        }
+    }
+
+    async populateVisitedPlacesList() {
+        const res = await fetch('places/visited/' + this.state.token, {
+            method: 'GET',
+            headers: { 'Content-type': 'application/json' }
+        });
+
+        if (res.ok) {
+            res.json().then(data => this.setState({ VisitedPlaces: data }));
+        } else {
+            this.setState({ VisitedPlaces: null });
+        }
+    }
+
     render() {
         const isLoggedIn = this.state.token;
         let contenu = null;
 
         if (isLoggedIn) {
+            this.populateSuggestedPlacesList();
+            this.populateVisitedPlacesList();
             contenu = <Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
@@ -89,15 +104,15 @@ export class Home extends Component {
                                 <h2>Suggestions</h2>
                             </Row>
                             <Row>
-                                {Home.renderPlacesList(this.state.Places)}
+                                {Home.renderPlacesList(this.state.SuggestedPlaces)}
                             </Row>
                         </Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
-                                <h2>Vos lieux</h2>
+                                <h2>Lieux visités</h2>
                             </Row>
                             <Row>
-                                {Home.renderPlacesList(this.state.Places.filter(place => (place.ownerId !== null) && (place.ownerId === this.state.token)))}
+                                {Home.renderPlacesList(this.state.VisitedPlaces)}
                             </Row>
                         </Container>
                       </Container>
