@@ -5,7 +5,8 @@ import {
 	FormGroup,
 	Input,
 	Button,
-	FormFeedback
+	FormFeedback,
+	FormText
 } from 'reactstrap';
 import { Redirect } from 'react-router';
 import ReactTags from 'react-tag-autocomplete';
@@ -155,7 +156,10 @@ export class PlaceForm extends Component {
 						removeButtonText="Cliquer pour enlever ce tag"
 						noSuggestionsText="Aucune suggestion"
 						onDelete={this.onDelete.bind(this)}
-						onAddition={this.onAddition.bind(this)}/>
+						onAddition={this.onAddition.bind(this)} />
+					<FormText color="muted">
+						Parmi: Familial, Couple, Mer, Montagne, Tourisme, Romantique, Ski, Nature, Sport, Repos
+					</FormText>
 				</FormGroup>
 				<div>
 					<Button color="success">Valider</Button>{' '}
