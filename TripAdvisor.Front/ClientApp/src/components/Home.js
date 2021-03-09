@@ -30,6 +30,8 @@ export class Home extends Component {
 
     componentDidMount() {
         this.populatePopularPlacesList();
+        this.populateSuggestedPlacesList();
+        this.populateVisitedPlacesList();
     }
 
     static renderPlacesList(places) {
@@ -58,28 +60,32 @@ export class Home extends Component {
     }
 
     async populateSuggestedPlacesList() {
-        const res = await fetch('places/suggestions/' + this.state.token, {
-            method: 'GET',
-            headers: { 'Content-type': 'application/json' }
-        });
+        if (this.state.token) {
+            const res = await fetch('places/suggestions/' + this.state.token, {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json' }
+            });
 
-        if (res.ok) {
-            res.json().then(data => this.setState({ SuggestedPlaces: data }));
-        } else {
-            this.setState({ SuggestedPlaces: null });
+            if (res.ok) {
+                res.json().then(data => this.setState({ SuggestedPlaces: data }));
+            } else {
+                this.setState({ SuggestedPlaces: null });
+            }
         }
     }
 
     async populateVisitedPlacesList() {
-        const res = await fetch('places/visited/' + this.state.token, {
-            method: 'GET',
-            headers: { 'Content-type': 'application/json' }
-        });
+        if (this.state.token) {
+            const res = await fetch('places/visited/' + this.state.token, {
+                method: 'GET',
+                headers: { 'Content-type': 'application/json' }
+            });
 
-        if (res.ok) {
-            res.json().then(data => this.setState({ VisitedPlaces: data }));
-        } else {
-            this.setState({ VisitedPlaces: null });
+            if (res.ok) {
+                res.json().then(data => this.setState({ VisitedPlaces: data }));
+            } else {
+                this.setState({ VisitedPlaces: null });
+            }
         }
     }
 
@@ -88,8 +94,6 @@ export class Home extends Component {
         let contenu = null;
 
         if (isLoggedIn) {
-            this.populateSuggestedPlacesList();
-            this.populateVisitedPlacesList();
             contenu = <Container>
                         <Container className="mb-5">
                             <Row className="mb-3">

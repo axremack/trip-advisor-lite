@@ -113,24 +113,20 @@ namespace TripAdvisor.Controllers
             }
             else
             {
-                var lstComments = await _context.Comments.Where(c => c.UserId == id).ToListAsync();
+                var lstPlaceIds = await _context.Comments.Where(c => c.UserId == id).Select(c => c.PlaceId).ToListAsync();
+                var lstPlaces = await _context.Places.Where(p => lstPlaceIds.Contains(p.PlaceId)).ToListAsync();
                 var lstTags = new List<Tag>();
                 var listPlaces = new List<Place>();
-
-                foreach (var comment in lstComments)
+                
+                foreach (var place in lstPlaces)
                 {
-                    var lstPlaces = await _context.Places.Where(p => p.PlaceId == comment.PlaceId).ToListAsync();
-
-                    foreach (var place in lstPlaces)
-                    {
-                        var tabTags = await _context.PlaceTags.Where(p => p.PlaceId == id).Select(p => p.Tag).ToListAsync();
-                        lstTags = lstTags.Union(tabTags).ToList();
-                    }
+                    var tabTags = await _context.PlaceTags.Where(p => p.PlaceId == place.PlaceId).Select(p => p.Tag).ToListAsync();
+                    lstTags = lstTags.Union(tabTags).ToList();
                 }
 
                 foreach (var place in items)
                 {
-                    var tabTags = await _context.PlaceTags.Where(p => p.PlaceId == id).Select(p => p.Tag).ToListAsync();
+                    var tabTags = await _context.PlaceTags.Where(p => p.PlaceId == place.PlaceId).Select(p => p.Tag).ToListAsync();
 
                     if (lstTags.Intersect(tabTags).Any())
                     {
