@@ -26,7 +26,7 @@ export class SearchBar extends Component {
 
 	render() {
 		return (
-			<Form inline>
+			<Form action={"/search/" + this.state.Text}>
 				<InputGroup>
 					<Input type="search" placeholder="Rechercher un lieu" value={this.state.Text} onChange={this.handleChange}/>
 					<InputGroupAddon addonType="append">
