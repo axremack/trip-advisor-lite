@@ -29,7 +29,14 @@ export class Home extends Component {
     }
 
     componentDidMount() {
+        const isLoggedIn = this.state.token;
+
         this.populatePopularPlacesList();
+
+        if (isLoggedIn) {
+            this.populateSuggestedPlacesList();
+            this.populateVisitedPlacesList();
+        }
     }
 
     static renderPlacesList(places) {
@@ -88,8 +95,6 @@ export class Home extends Component {
         let contenu = null;
 
         if (isLoggedIn) {
-            this.populateSuggestedPlacesList();
-            this.populateVisitedPlacesList();
             contenu = <Container>
                         <Container className="mb-5">
                             <Row className="mb-3">
