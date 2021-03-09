@@ -2,8 +2,7 @@
 import { PlaceCard } from './PlaceCard';
 import {
     Container,
-    Row,
-    Col
+    Row
 } from 'reactstrap';
 
 export class SearchPage extends Component {

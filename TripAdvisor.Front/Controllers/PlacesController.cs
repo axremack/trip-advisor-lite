@@ -144,26 +144,16 @@ namespace TripAdvisor.Controllers
         [HttpGet("visited/{id}")]
         public async Task<ActionResult<IEnumerable<Place>>> GetVisited(int id)
         {
-            var items = await _context.Places.ToListAsync();
-            if (items == null || !items.Any())
-            {
-                return NotFound("Item not Found");
-            }
-            else
-            {
-                var listPlaces = new List<Place>();
-                var lstVisited = await _context.UserVisits.Where(v => v.UserId == id).ToListAsync();
+            var listPlaces = new List<Place>();
+            var lstVisited = await _context.UserVisits.Where(v => v.UserId == id).ToListAsync();
 
-                foreach (var visited in lstVisited)
-                {
-                    var lstPlaces = await _context.Places.Where(p => p.PlaceId == visited.PlaceId).ToListAsync();
-                    listPlaces = listPlaces.Union(lstPlaces).ToList();
-                }
-
-                items = listPlaces;
+            foreach (var visited in lstVisited)
+            {
+                var lstPlaces = await _context.Places.Where(p => p.PlaceId == visited.PlaceId).ToListAsync();
+                listPlaces = listPlaces.Union(lstPlaces).ToList();
             }
 
-            return items;
+            return listPlaces;
         }
 
         // POST /places

@@ -52,24 +52,22 @@ export class NavMenu extends Component {
 		let button = null;
 
 		if (isLoggedIn) {
-			button = <NavItem>
-				<UncontrolledDropdown nav inNavbar>
-					<DropdownToggle nav caret>
-						Mon compte
-					</DropdownToggle>
-					<DropdownMenu right>
-						<DropdownItem>
-							<NavLink tag={Link} className="text-dark p-0" to={"/user/" + this.state.token}>Profil</NavLink>
-						</DropdownItem>
-						<DropdownItem onClick={() => {
-							localStorage.clear();
-							this.state.setToken(null);
-						}}>
-							Deconnexion
-                        </DropdownItem>
-					</DropdownMenu>
-				</UncontrolledDropdown>
-			</NavItem >;
+			button = <UncontrolledDropdown nav inNavbar>
+				<DropdownToggle nav caret>
+					Mon compte
+				</DropdownToggle>
+				<DropdownMenu right>
+					<DropdownItem>
+						<NavLink tag={Link} className="text-dark p-0" to={"/user/" + this.state.token}>Profil</NavLink>
+					</DropdownItem>
+					<DropdownItem onClick={() => {
+						localStorage.clear();
+						this.state.setToken(null);
+					}}>
+						Deconnexion
+                    </DropdownItem>
+				</DropdownMenu>
+			</UncontrolledDropdown>;
 		} else {
 			button = <NavItem>
 				<NavLink tag={Link} className="text-dark" to="/login">Connexion</NavLink>
