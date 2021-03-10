@@ -13,7 +13,7 @@ export class Home extends Component {
         this.state = {
             PopularPlaces: [],
             SuggestedPlaces: [],
-            //VisitedPlaces: [],
+            VisitedPlaces: [],
             token: props.userId
         }
     }
@@ -31,7 +31,7 @@ export class Home extends Component {
     componentDidMount() {
         this.populatePopularPlacesList();
         this.populateSuggestedPlacesList();
-        //this.populateVisitedPlacesList();
+        this.populateVisitedPlacesList();
     }
 
     static renderPlacesList(places) {
@@ -74,7 +74,7 @@ export class Home extends Component {
         }
     }
 
-    /*async populateVisitedPlacesList() {
+    async populateVisitedPlacesList() {
         if (this.state.token) {
             const res = await fetch('places/visited/' + this.state.token, {
                 method: 'GET',
@@ -87,7 +87,7 @@ export class Home extends Component {
                 this.setState({ VisitedPlaces: null });
             }
         }
-    }*/
+    }
 
     render() {
         const isLoggedIn = this.state.token;
@@ -109,6 +109,14 @@ export class Home extends Component {
                             </Row>
                             <Row>
                                 {Home.renderPlacesList(this.state.SuggestedPlaces)}
+                            </Row>
+                        </Container>
+                        <Container className="mb-5">
+                            <Row className="mb-3">
+                                <h2>Lieux visités</h2>
+                            </Row>
+                            <Row>
+                                {Home.renderPlacesList(this.state.VisitedPlaces)}
                             </Row>
                         </Container>
                       </Container>
